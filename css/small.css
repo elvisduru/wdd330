@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+}
+
+header,
+main,
+footer {
+  margin: 0 auto;
+  padding: 0.75rem;
+  max-width: 45rem;
+}
+
+header,
+footer {
+  background-color: #02213b;
+  color: white;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.253);
+  text-align: center;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  margin: 20px;
+}
+
+hr {
+  background-color: #04082357;
+  height: 1px;
+}
+
+footer {
+  font-size: 0.8rem;
+}
+
+footer a {
+  color: unset;
+}
+
+header img {
+  width: 200px;
+  height: auto;
+}
+
+main {
+  padding: 10px;
+}
