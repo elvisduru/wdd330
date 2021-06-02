@@ -1,7 +1,7 @@
 import HikesController from "./HikesController.js";
-import CommentController from "./CommentController";
-const controller = new HikesController("hikes");
+const hikesController = new HikesController("hikes");
+
 window.addEventListener("load", function () {
-  controller.showHikeList();
-  controller.addHikeListener();
+  hikesController.showHikeList();
+  hikesController.addHikeListener();
 });
