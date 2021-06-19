@@ -1,0 +1,709 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Array Properties and Methods</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9b23a21d-e470-44bb-bdea-093798db7362" class="page sans"><header><h1 class="page-title">Array Properties and Methods</h1></header><div class="page-body"><p id="cb331087-1fa9-40d7-8436-2fac41b8a2d3" class="">In JavaScript, Arrays are powerful and super useful. Arrays have some very useful inbuilt methods that are demonstrated in the following examples.</p><p id="02fc5d9b-0e64-4a69-896c-5b4513c902c0" class="">Given the following array:</p><pre id="6195c452-6973-4b8e-b7b5-54049346c535" class="code code-wrap"><code>const fruits = [&#x27;bananas 🍌&#x27;, &#x27;oranges 🍊&#x27;, &#x27;mangoes 🥭&#x27;, &#x27;strawberries 🍓&#x27;, &#x27;watermelons 🍉&#x27;];</code></pre><p id="4f7e8b84-332f-41e1-b488-45604b1ced22" class="">To find the length of an array, we can use the length property:</p><pre id="574eca30-6f70-448f-9170-07175eb05ad4" class="code code-wrap"><code>fruits.length;
+&gt;&gt; 5</code></pre><p id="0ce9f465-1bd3-43ec-8d6b-042e8843269a" class="">You can also find the last item in the array this way:</p><pre id="eb3742c4-3add-4ba9-8e27-9520b4869596" class="code code-wrap"><code>fruits[fruits.length - 1];
+&gt;&gt; &#x27;watermelons&#x27;</code></pre><p id="8a5508b6-33d6-4fa4-acaf-524571ee9f95" class="">The reason why we had to subtract 1 from the length of the array is because of the way the array items are indexed. The first index starts at 0, so the last item will have an index of one less than the array&#x27;s length.</p><p id="0066d229-866a-4002-9984-edf3e74133b1" class="">The length property of an array is mutable. if you make the array longer, the extra slots will be filled in with undefined values, whereas if you make the array shorter, the extra elements will be removed completely! </p><pre id="73b6c48e-5fa2-44ce-a986-f6085eaf6c21" class="code code-wrap"><code>// Making the array longer
+fruits.length = 7
+&gt;&gt; 7;
+
+fruits
+&gt;&gt; [&#x27;bananas 🍌&#x27;, &#x27;oranges 🍊&#x27;, &#x27;mangoes 🥭&#x27;, &#x27;strawberries 🍓&#x27;, &#x27;watermelons 🍉&#x27;, undefined, undefined];
+
+// Making the array shorter, truncating the elements.
+fruits.length = 3
+&gt;&gt; 3
+
+fruits
+&gt;&gt; [&#x27;bananas&#x27;, &#x27;oranges&#x27;, &#x27;mangoes&#x27;]</code></pre><p id="fac5c50e-a80b-4d68-a061-20914504bd5f" class="">You can also truncate an array using Array <code>splice()</code> method: </p><pre id="bab04aad-f1e2-4488-bbd3-a20a2dcf3ff8" class="code code-wrap"><code>const fruits = [&#x27;bananas 🍌&#x27;, &#x27;oranges 🍊&#x27;, &#x27;mangoes 🥭&#x27;, &#x27;strawberries 🍓&#x27;, &#x27;watermelons 🍉&#x27;];
+
+// Truncate the array, removing elements after the 3rd index
+fruits.splice(3);
+
+fruits
+&gt;&gt; [&#x27;bananas 🍌&#x27;, &#x27;oranges 🍊&#x27;, &#x27;mangoes 🥭&#x27;]</code></pre><p id="2d46cc11-0b24-4dee-9ac1-4fe3a9335ec2" class="">We use the <code>pop()</code> method to remove the last item in the array, and the <code>shift()</code> method to remove the first item in the array. Both methods return the value that was removed.</p><pre id="93f9e1dc-07a4-4b07-9666-c48a659e8b98" class="code code-wrap"><code>fruits;
+&gt;&gt; [&#x27;bananas 🍌&#x27;, &#x27;oranges 🍊&#x27;, &#x27;mangoes 🥭&#x27;]
+
+// Remove last element
+fruits.pop();
+&gt;&gt; &#x27;mangoes 🥭&#x27;
+
+// Remove first element
+fruits.shift();
+&gt;&gt; &#x27;bananas 🍌&#x27;
+
+fruits;
+[&#x27;oranges 🍊&#x27;]</code></pre><p id="2eadc720-61a0-4588-a1a9-6eb611af2f12" class="">The <code>push()</code> method is used to append an item to the end of an array, and the <code>unshift()</code> method appends an item to the beginning or start of the array. The return value for both methods is the length of the array.</p><pre id="f00e22db-a6d6-4dba-a2ff-6baa78c81441" class="code code-wrap"><code>// Append an element to the end of the array
+fruits.push(&#x27;coconuts 🥥&#x27;);
+&gt;&gt; 2
+
+// Append an element to the beginning of the array
+fruits.unshift(&#x27;pineapples 🍍&#x27;);
+&gt;&gt; 3
+
+fruits;
+&gt;&gt; [&#x27;coconuts 🥥&#x27;, &#x27;oranges 🍊&#x27;, &#x27;pineapples 🍍&#x27;</code></pre><p id="9439b754-c096-460c-be1d-fdd82bbb5721" class="">The <code>concat()</code> method is used to merge an array with one or more arrays: </p><pre id="19db0b69-628b-4a3d-884a-6443a72a55b6" class="code code-wrap"><code>fruits.concat([&#x27;tomatoes 🍅&#x27;, &#x27;grapes 🍇&#x27;, &#x27;melons 🍈&#x27;, &#x27;peaches 🍑&#x27;], [&#x27;pears 🍐&#x27;, &#x27;apples 🍎&#x27;]);
+&gt;&gt; [&#x27;coconuts 🥥&#x27;, &#x27;oranges 🍊&#x27;, &#x27;pineapples 🍍&#x27;, &#x27;tomatoes 🍅&#x27;, &#x27;grapes 🍇&#x27;, &#x27;melons 🍈&#x27;, &#x27;peaches 🍑&#x27;, &#x27;pears 🍐&#x27;, &#x27;apples 🍎&#x27;]</code></pre><p id="ba21fe3d-96a1-41bd-aa1a-780e6978d6e8" class="">Note that this doesn&#x27;t change the fruits array, instead it simply creates an array by combining the three arrays. Another way to merge arrays is to use the <code>spread</code> operator that was added to ES6. The spread operator is written thus <code>...</code></p><p id="cbc781c7-145c-45ed-86b3-817386bdf09f" class=""> </p><pre id="957c7591-547f-4cec-bc2d-bb129e5fc12a" class="code code-wrap"><code>const newfruits = [...fruits, ...[&#x27;tomatoes 🍅&#x27;, &#x27;grapes 🍇&#x27;, &#x27;melons 🍈&#x27;, &#x27;peaches 🍑&#x27;]];
+&gt;&gt; [&#x27;coconuts 🥥&#x27;, &#x27;oranges 🍊&#x27;, &#x27;pineapples 🍍&#x27;, &#x27;tomatoes 🍅&#x27;, &#x27;grapes 🍇&#x27;, &#x27;melons 🍈&#x27;, &#x27;peaches 🍑&#x27;]</code></pre><p id="6e58d223-56d5-4d96-ab29-585d92903f81" class="">The <code>join()</code> method is used to convert an array into a string that comprises all the elements in the array, separated by commas by default. You can also specify another separator by passing it as an argument. </p><pre id="c7aaafe6-625f-4b34-84a6-31c7e79cba1c" class="code code-wrap"><code>fruits.join();
+&gt;&gt; &#x27;coconuts 🥥, oranges 🍊, pineapples 🍍, tomatoes 🍅, grapes 🍇, melons 🍈, peaches 🍑&#x27;
+
+// you can specify the separator too
+fruits.join(&#x27; + &#x27;);
+&gt;&gt; &#x27;coconuts 🥥 + oranges 🍊 + pineapples 🍍 + tomatoes 🍅 + grapes 🍇 + melons 🍈 + peaches 🍑&#x27;</code></pre><p id="8e14d51e-9dab-4ea7-a0eb-ad5b289a17f0" class="">The <code>slice()</code> method creates a subarray by chopping out a <em>slice </em>of an original array, starting at one position and finishing at another.</p><pre id="12a3c104-6bce-4062-b4fc-ba123e69b171" class="code code-wrap"><code>/*
+starts at the 3rd item (index 2) and finishes at the fourth item (the item with index 4 is not included)
+*/
+fruits.slice(2, 4);
+&gt;&gt; [&#x27;pineapples 🍍&#x27;, &#x27;tomatoes 🍅&#x27;, &#x27;grapes 🍇&#x27;]</code></pre><p id="8a1cde8c-c642-4c9e-882f-8b48d02a3398" class="">The <code>splice()</code> method can remove items from an array and then insert new ones in their place. For example, the following code removes <code>&#x27;tomatoes 🍅&#x27;</code> and replaces it with <code>&#x27;bananas 🍌&#x27; </code>  . Be aware that this is a destructive operation as it changes the original array.</p><pre id="3ca8d284-ba83-4d2a-9204-04bc589d1ed1" class="code code-wrap"><code>fruits.splice(1, 1, &#x27;bananas 🍌&#x27;);
+&gt;&gt; [&#x27;pineapples 🍍&#x27;, &#x27;bananas 🍌&#x27;, &#x27;grapes 🍇&#x27;]</code></pre><p id="33cf40c3-2342-406b-afa6-a686c53e9c42" class="">The first parameter is the index to start the splice, the second parameter indicates how many items should be removed from the array, every value passed after the second parameter is then inserted in the index specified in the first parameter.</p><p id="a1217a1a-503f-498a-9490-474f7bbe043f" class="">The <code>splice()</code> method can also insert values into an array at a specific index without removing any items, by indicating that zero items are to be removed. This will return an empty array (because nothing was removed). </p><pre id="3f8f455c-28b8-4d46-aee1-0bab0e3a1520" class="code code-wrap"><code>fruits.splice(2, 0, &#x27;tomatoes 🍅&#x27;);
+&gt;&gt; []
+
+fruits;
+&gt;&gt; [&#x27;pineapples 🍍&#x27;, &#x27;bananas 🍌&#x27;, &#x27;grapes 🍇&#x27;, &#x27;tomatoes 🍅&#x27;]</code></pre><p id="75f80fd4-1868-43b6-b8e3-cc92c68236d0" class="">You can also use the <code>splice()</code> method to remove an item from an array. This is demonstrated below:</p><pre id="3a3a960a-fe80-4156-a523-87949e84d333" class="code code-wrap"><code>// Delete an item at the 3rd position (index 2) in the array.
+fruits.splice(2, 1); // note that no values were added as parameters
+&gt;&gt; [&#x27;grapes 🍇&#x27;]
+
+fruits;
+&gt;&gt; [&#x27;pineapples 🍍&#x27;, &#x27;bananas 🍌&#x27;, &#x27;tomatoes 🍅&#x27;]</code></pre><p id="cacccd82-59aa-4356-b1cd-4bd799f91f29" class="">We can reverse the order of an array using the <code>reverse()</code> method: </p><pre id="41fdd707-f278-4309-b965-470f2217cac5" class="code code-wrap"><code>fruits.reverse();
+&gt;&gt; [&#x27;tomatoes 🍅&#x27;, &#x27;bananas 🍌&#x27;, &#x27;pineapples 🍍&#x27;]
+
+[1, 2, 3].reverse();
+&gt;&gt; [3, 2, 1]</code></pre><p id="2570c92d-6b3c-444e-95bc-d65819a86035" class="">We can sort the order of an array using the <code>sort()</code> method:</p><pre id="fc7e8b45-9ad4-4a36-baa9-bdcff4c8d064" class="code code-wrap"><code>// Sort alphabetically by default
+fruits.sort();
+&gt;&gt; [&#x27;bananas 🍌&#x27;, &#x27;pineapples 🍍&#x27;, &#x27;tomatoes 🍅&#x27;]</code></pre><p id="22b4b98b-6ef8-444e-9a3c-c9e0fd860f04" class="">You can pass a callback method to the <code>sort()</code> method when sorting an array:</p><pre id="946eed96-ce1f-445a-b5dc-ace6daef6539" class="code code-wrap"><code>[2, 1, 3].sort((a, b) =&gt; a - b);
+&gt;&gt; [1, 2, 3]</code></pre><p id="59eef945-0b57-49da-9464-2d775a060db5" class="">The <code>indexOf()</code> method finds the index of an item in an array. If the item does not exist it returns <code>-1</code> .</p><pre id="0d708401-a349-40bb-a118-a5a6d47fa438" class="code code-wrap"><code>const fruits = [&#x27;pineapples 🍍&#x27;, &#x27;bananas 🍌&#x27;, &#x27;grapes 🍇&#x27;, &#x27;tomatoes 🍅&#x27;]
+
+fruits.indexOf(&#x27;grapes 🍇&#x27;);
+&gt;&gt; 2
+
+// returns -1 if item does not exist
+fruits.indexOf(&#x27;coconut 🥥&#x27;);
+&gt;&gt; -1</code></pre><p id="c225efbd-96cc-42df-a532-6520d7082a50" class="">ES6 introduced the <code>includes()</code> method which returns a Boolean value if an item is found in an array.</p><pre id="2983de6d-e7e0-4e05-bcfb-eb3e0169191c" class="code code-wrap"><code>fruits.includes(&#x27;pineapples 🍍&#x27;);
+&gt;&gt; true
+
+fruits.includes(&#x27;coconut 🥥&#x27;);
+&gt;&gt; false</code></pre><p id="f6abe858-4ee1-4f31-8ed9-abccbc6f4d0c" class="">
+</p></div></article></body></html>

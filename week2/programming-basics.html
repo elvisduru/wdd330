@@ -1,0 +1,745 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Programming Basics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="024d9564-b56a-4d2b-89e4-d366d88c2518" class="page sans"><header><h1 class="page-title">Programming Basics</h1></header><div class="page-body"><h2 id="2ad6ea03-74f9-43ae-a32b-3bd8899b57a6" class="">Comments</h2><p id="2f6b32cc-a5cc-4814-894a-807a87d92de9" class="">Comments are extremely important in programming. A comment is a piece of code that is ignored by the language but can be read by humans. Comments make it easy for people reading your code to understand what is going on. It&#x27;s good practice to write good, concise comments!</p><p id="8810d237-2548-4734-9715-8d6bf6b0398b" class="">The JavaScript language has two types of comments:</p><ul id="54a09830-5253-499d-bd51-fadb9a382212" class="bulleted-list"><li>Single line comments - start with <code>//</code> and finish at the end of the line.</li></ul><pre id="a758cde2-630d-4e1a-9e19-242c9f85c15a" class="code"><code>// a short comment on a single line</code></pre><ul id="aed21327-46e6-44ab-9012-1ac1e5104d6e" class="bulleted-list"><li>Multi-line comments - start with <code>/*</code>, usually span multiple lines and end with <code>*/</code></li></ul><pre id="c6e586d2-463d-4e56-a2c9-c2d670185ef9" class="code"><code>/* This here is a multi-line
+comment. It&#x27;s called multi-line
+because it can span multiple lines
+*/</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="c7d13de2-8928-4521-a661-7357c5c70d75"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Some utilities such as <a href="https://jsdoc.app/">JSDoc </a>and <a href="http://yui.github.io/yuidoc/">YUIDoc </a>can convert your comments into documentation.</div></figure><h2 id="1be4c51b-9007-4025-bf9a-52d672b00240" class="">JavaScript Grammar</h2><p id="c97feeec-9169-4590-b4d9-121afe70b3e2" class="">JavaScript adopts a C-style syntax because of its similarities with the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C programming language</a>.</p><p id="cbf0dd73-13a5-4af4-9cb1-a6233f5887ed" class="">A JavaScript program is made up of a series of statements that end with a new line or semicolon.</p><p id="7949a696-5350-4234-9d06-b5d935d23468" class="">Here&#x27;s an example of two statements, one on each line:</p><pre id="df5bab2d-0cde-4a8b-947f-43d6793c0a1b" class="code"><code>const name = &quot;Elvis Duru&quot;
+alert(name)</code></pre><p id="e7a8047a-e145-47b9-ada3-21a6769ed5a4" class="">This example can also be written using semicolons to end each statement as follows: </p><pre id="d55d5890-fa0b-4593-a9f2-09fad579bf72" class="code"><code>const name = &#x27;Elvis Duru&#x27;;alert(name);</code></pre><p id="c25fed20-5ef2-4724-86c2-14ffe104c79d" class="">JavaScript lets you end statements without a semicolon because the JavaScript interpreter uses a process called Automatic Semicolon Insertion (ASI). This process will attempt to place semicolons at the end of lines for you. However, it&#x27;s advisable to combine the two - write each statement on a newline and end them with semicolons to avoid syntax errors, or code minifiers and validators not working properly. </p><pre id="ec5ffb94-83d1-43b9-ba53-dd088cf2ddee" class="code"><code>const name = &#x27;Elvis Duru&#x27;;
+alert(name);</code></pre><p id="4feff317-a5bf-443a-921a-aef66a8080fb" class="">A block is a group of related statements collected inside curly braces: </p><pre id="f459bbd0-07d9-4dd9-971c-ad551ac0442a" class="code"><code>{
+	// a javascript block containing 2 statements
+	const name = &#x27;Elvis Duru&#x27;;
+	alert(name);
+}</code></pre><p id="b8e4e9aa-28c6-43a2-aea7-8cc885870c67" class="">Blocks do not need to be terminated by a semicolon.</p><p id="71913cd5-895d-436c-b1ae-eb77ae6e20fd" class="">Whitespace (such as spaces, tabs and new lines) is used to separate different parts of each statement. It&#x27;s good practice to use enough whitespace to format your code so it&#x27;s neat and readable. Examples of this includes using white space to indent nested code and multiple lines to separate blocks of code.</p><h2 id="2a0ff55b-ca8b-4028-87d0-1b736950cf65" class="">Reserved Words in JavaScript</h2><p id="2af13212-580e-4dff-a523-3a97b28b6a51" class="">The JavaScript language has the following words reserved for use. This means that you cannot used them to name variables (or function parameters and object properties). </p><pre id="328bf4ad-7998-4767-8354-ecbd3d1137e6" class="code code-wrap"><code>abstract, await, boolean, break, byte, case, catch, char, class, const, continue, debugger, default, delete, do, double, else, enum, export, extends, false, final, finally, float, for, function, goto, if, implements, import, in instanceof, int, interface, let, long, native, new, null, package, private, protected, public, return, short, static, super, switch, synchronized, this, throw, throws, transient, true, try, typeof, var, volatile, void, while, with, yield</code></pre><p id="596727c1-6a37-4693-b462-b00f46267195" class="">The following were removed from the ECMAScript 5/6 standard: </p><pre id="c0abbeb1-7341-4b98-9f41-e68e1932d94f" class="code code-wrap"><code>abstract, boolean, byte, char, double, final, float, goto, int, long, native, short, synchronized, throws, transient, volatile</code></pre><h2 id="ced43c7d-8b09-4249-9998-c9a926861c13" class="">Primitive Data Types</h2><p id="016af88e-4cd3-4b0e-ae81-42edf742449f" class="">There are seven different data types in JavaScript. Six of them are <em>primitive</em> data types:</p><ul id="501bc54c-317f-4b66-8299-b003dae2b91f" class="bulleted-list"><li>String</li></ul><ul id="18b1a369-cd13-4268-99fb-9d59627ceba8" class="bulleted-list"><li>Symbol (introduced in ES6)</li></ul><ul id="054d18f8-b28a-4387-aac7-456d75a2c31f" class="bulleted-list"><li>Number</li></ul><ul id="f814c2bd-919d-4724-9419-970427b88d56" class="bulleted-list"><li>Boolean</li></ul><ul id="50a708e3-60d6-4ba8-aa3c-520fc8a55c6c" class="bulleted-list"><li>Undefined</li></ul><ul id="b784d1ae-ad90-450e-a137-f51ea18fa6f7" class="bulleted-list"><li>Null</li></ul><p id="38bdff4a-b9e5-417f-be93-2b0d590b666c" class="">Any value that is not one of the primitive data types listed above is an <strong>object.</strong> This includes arrays, functions and object literals.</p><p id="6a432af3-657a-4ffe-a344-d8ea7bd1c035" class="">You can find out the type of value using a special operator called <code>type of</code>. </p><pre id="214d11d5-0015-4bf0-952d-6d10befd7078" class="code code-wrap"><code>typeof &#x27;hello&#x27;
+&lt;&lt; &#x27;string&#x27;
+typeof 10
+&lt;&lt; &#x27;number&#x27;
+typeof true
+&lt;&lt; &#x27;boolean&#x27;
+typeof { ninja: &#x27;turtle&#x27; }
+&lt;&lt; &#x27;object&#x27;
+typeof [ 1, 2, 3 ]
+&lt;&lt; &#x27;object&#x27; (All non-primitive data types return a type of &#x27;object&#x27;.)</code></pre><h2 id="3410f5cb-fd3f-4f71-9f67-775c4350b5ff" class="">Variables</h2><p id="91b9b59b-e2a1-4f47-ac83-06484c67f955" class="">A variable refers to a value stored in memory.</p><h3 id="4553e9fc-9264-4479-82bc-4cadf55d2115" class="">Declaring &amp; Assigning</h3><p id="858f6790-504b-4aee-bc44-e00a6320b10c" class="">Variables must be declared before they can be used. ES6 introduced a new way to declare variables using the <code>const</code> and <code>let</code> keywords. <code>const</code> is used when the variable will not be reassigned to another value. <code>let</code> is used if the variable will be reassigned later in the program.</p><p id="ddcbdb1d-bcd1-45eb-99c8-5e9508d3b195" class="">To assign a value to a variable, we use the <code>=</code> operator.</p><p id="a5498ceb-2285-42ee-9659-4bdc9b725bb0" class="">The following examples show you how to declare a variable and assign a value to it: </p><pre id="18637383-1aea-4f16-b44b-abac1a5d102e" class="code code-wrap"><code>/*
+	This constant now has a value of the string literal &#x27;Elvis&#x27;. 
+	It won&#x27;t be assigned to another value.
+*/
+const name = &#x27;Elvis&#x27;;
+
+/*
+	This variable now has a value of an integer 25.
+	This value may change during the program.
+*/
+let age = 25;
+
+
+// Meanwhile...Later in the program
+age = 30; // This is acceptible if you know what you&#x27;re doing ✅
+name = &#x27;Daniel&#x27; // You&#x27;ll get an error!! ❌</code></pre><p id="76c8421c-7d07-4eeb-b392-f22a78c885ff" class="">If the variable references a non-primitive data type, such as an array, function or object, then using <code>const</code> will not make it <strong>immutable</strong>. This means that the underlying data inside the object can change or be <strong>mutated: </strong></p><pre id="c8b624c2-2f5d-4ffd-9800-474208e71c1d" class="code code-wrap"><code>const user = {name: &#x27;Elvis&#x27;, age: 25}; // an object representing a user
+console.log(user.name);
+&lt;&lt; &#x27;Elvis&#x27;
+
+user.name = &#x27;Daniel&#x27;; // This works!
+
+console.log(user.name);
+&lt;&lt; &#x27;Daniel&#x27;</code></pre><p id="7d509fc8-2d71-4730-9261-d3eec6343199" class="">Even though its possible to mutate an object declared using a <code>const</code> variable, you however cannot assign the variable to another object: </p><pre id="ebfe86ea-9f90-41e3-a852-327b9e8b08c1" class="code code-wrap"><code>// declare object
+const user = {name: &#x27;Elvis&#x27;, age: 25};
+
+// Attempt to reassign to another object
+user = {name: &#x27;Daniel&#x27;, age: 30}
+&lt;&lt; TypeError: Assignment to constant variable</code></pre><p id="f2827c6f-065c-460b-9350-c8f31aec8b3c" class="">You can declare and assign multiple variables at the once if you separate them with commas: </p><pre id="8489687c-123a-4786-acb3-e4ca8cde9904" class="code code-wrap"><code>let a = 1, b = 2, c = 3;</code></pre><h2 id="a92b8c3f-fc99-4d10-9242-720bbf826c29" class="">The <code>var</code> keyword</h2><p id="f967de71-3c10-4d07-b0ab-1ebd56b073b3" class="">Previous to ES6, variables were declared using the <code>var</code> keyword. </p><pre id="0d35a324-6f46-4f36-8600-d5da8b17e752" class="code code-wrap"><code>var name = &#x27;Elvis&#x27;;</code></pre><p id="dab85a36-3254-40d7-bf10-8e51770963ef" class="">This worked just like <code>let</code>. Although, the difference was that variables declared using <code>let</code> and <code>const</code> have block scope as discussed below.</p><h2 id="1591999e-8abd-4cbb-b6a8-1e517c1867d0" class="">Scope</h2><p id="1228ec3b-dec8-450d-ba55-012a9e9b6a9e" class="">As mentioned earlier, variables declared using <code>const</code> and <code>let</code> are block scoped, this means that their values only exist in the block they are declared in.</p><p id="8d6169d3-8195-47b3-9ecf-21e3dcaf22d7" class=""><strong>Lexical Scoping </strong>is a very important concept in JavaScript programming as well as some other languages.  It refers to where a constant or variable is accessible by the program. There are two types of scopes in JavaScript, the <strong>global</strong> scope and the <strong>local</strong> scope.</p><h3 id="abceb198-533d-4080-b945-db9901ee497e" class="">Global Scope</h3><p id="377c1ce0-2c26-4c25-ba7d-3f167fcb6cd9" class="">Any variable declared outside a block is said to have a <strong>global scope</strong>. This means that it&#x27;s accessible everywhere in the program.</p><h3 id="774efc24-d4c8-4da3-b857-ed11763c01fc" class="">Local Scope</h3><p id="b5482be5-80dd-4442-82b9-188bf4af98ef" class="">Variables created inside blocks with <code>let</code> or <code>const</code> have a <strong>local scope</strong>. This means that such variable is only accessible within that block. If not declared using <code>let</code> or <code>const</code> it will be available globally. This can be demonstrated in the following example: </p><pre id="ed303d50-3a75-4813-af07-68cd7ce5136d" class="code code-wrap"><code>const name = &quot;Elvis&quot;;
+{
+	const name = &quot;Daniel&quot;;
+	age = 25;
+}
+
+console.log(name); // &quot;Elvis&quot;
+console.log(age); // 25
+</code></pre><p id="27a2fdbc-87b7-4d1f-a9ae-230bfc55e377" class="">Note that when you reassign a global variable to a new value inside a block, it will update the global variable: </p><pre id="04b59219-a949-4a9a-8dba-710cdae3a505" class="code code-wrap"><code>const name = &quot;Elvis&quot;;
+{
+	name = &quot;Daniel&quot;; // The value of name is updated here
+	age = 25;
+}
+
+console.log(name); // &quot;Daniel&quot;
+console.log(age); // 25</code></pre><p id="2e4823c6-d19f-463a-9901-b0f739ae5d2e" class="">Also when you try to reference a variable that was declared inside a block from outside, you get an error: </p><pre id="baebfa1b-ef4f-41bc-8600-f33305253bb9" class="code code-wrap"><code>{
+	name = &#x27;Elvis&#x27;;
+	age = 25;
+}
+
+console.log(name); // ReferenceError: name is not defined.</code></pre><h2 id="ed7fd92a-38df-4a96-9f0f-e818376811ff" class="">Naming Constants &amp; Variables</h2><p id="4a7bba8a-ffc2-4282-b645-7d2350687717" class="">When naming constants and variables, it makes sense to give them sensible names that describe what the variable represents;  </p><pre id="ccde002b-3285-4c95-b12d-45b4ba90e3c2" class="code code-wrap"><code>// Good examples
+let pet = &quot;Dog&quot;
+let age = 25;
+
+// Bad examples
+let p = &quot;Dog&quot;
+let a = 25;</code></pre><p id="9ab6cb01-fa21-4e2d-a439-3dd6162afb3c" class="">Constant and variable names can start with any upper or lower-case letter, an underscore <code>_</code> , or dollar character, <code>$</code> . They can also contain numbers, but cannot start with them. Constant and variable names are case sensitive, so <code>username</code> is different to <code>USERNAME</code> and <code>userName</code>.</p><p id="33efa2f5-c6c5-431e-a832-c16c7c49aca4" class="">The following are valid examples: </p><pre id="673e99d8-4477-4d01-8c9d-49cdeca27bdb" class="code code-wrap"><code>$username
+_age
+firstName
+last_name
+address
+SPEED_OF_LIGHT</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="22a8cd07-c61d-4420-a502-94aff9ed81cc"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Note that variables that start with underscore<code>_</code> generally refer to private properties or methods, so its advisable not to follow this convention for variable names.
+
+The <code>$</code> character is also used by the popular jQuery, so using it might cause problems if you use the library.</div></figure><h2 id="a3ed4598-0257-4c0b-9e00-e6765d5a2134" class="">Direct Assignment &amp; Assignment By Reference</h2><p id="250e2470-fa2a-4491-b961-5427139398ef" class="">When you assign a primitive value to a variable, any changes you make are made directly to that value. </p><pre id="b82f232d-0479-4a6c-8f9c-f77430c7a1ec" class="code code-wrap"><code>const a = 1;
+let b = a; // a = 1, b = 1
+
+b = 2; // a = 1, b = 2</code></pre><p id="fac5d746-ca27-487d-abbe-b44b360c18bb" class="">In the above example, <code>a</code> references the primitive number <code>1</code>. We then assign <code>b</code> to the same value as <code>a</code>. At this point <code>a</code> and <code>b</code> both have the same value of <code>1</code>. Then we reassign the value of <code>2</code> to <code>b</code>, but <code>a</code> still retains the value of <code>1</code>.</p><p id="a2d09d4f-4212-4e57-b5a2-2748c401236b" class="">This case is different for non-primitive values though, as this is done by reference, so any changes that are subsequently made will affect all references to that object: </p><pre id="dcc382cb-f885-4e99-a8a0-24d5b44f2fa4" class="code code-wrap"><code>const userA = {age: 25};
+let userB = userA; // userA.age = 25, userB.age = 25
+userB.age = 30; // userA.age = 30, userB.age = 30</code></pre><p id="2dd56744-b31c-4429-b9d6-aec914809a05" class="">In the above example, the change to the <code>age</code> property of <code>userA</code> also results in the <code>age</code> property of <code>userB</code> changing as well. This is because both variables are referencing the same object, so any changes made to one of them affects the other.</p><h2 id="228ebc73-b211-4ea4-a235-9ff56b2a2333" class="">Strings</h2><p id="af3f23b4-49ed-4652-83ed-499459eb5cba" class="">A string is a collection of characters, such as letters and symbols. We can create a string literal by writing a group of characters inside quote marks: </p><pre id="b17ece5b-994f-4b62-a11a-ed43426f1a9e" class="code code-wrap"><code>&#x27;Hello World&#x27;</code></pre><p id="5e4f91e4-cfd1-4c92-a2d5-8f326316e2f0" class="">You can also create a string using the inbuilt <code>String</code> constructor function: </p><pre id="cff3895b-8083-4b91-b370-324bc77b7478" class="code code-wrap"><code>let str = new String(&quot;Hello World&quot;);
+console.log(str); // &quot;Hello World&quot;;</code></pre><p id="db9d609f-5938-4ee7-8cff-7e3f2abb1203" class="">This method of creating strings is rare, it&#x27;s preferable to use the string literal notation, not to mention that it requires less typing to use literals.</p><p id="9bc86cf0-3706-4bb0-bc9e-b6d871947fbd" class="">If you want to use double quote marks inside a string literal, you need to wrap the entire string with single quote marks. And if you want to use an apostrophe in a string, you will need to use the double quote marks to enclose the string, to prevent an error. Another option is to escape the quotation mark using the <strong>backslash </strong>character before the apostrophe.</p><pre id="b76c6e96-dd2c-4b30-b4ab-aeb7b0e998c6" class="code code-wrap"><code>&#x27;It&#x27;s me Mario&#x27; // causes an error ❌
+&quot;It&#x27;s me Mario&quot; // this works ✅
+&#x27;It\&#x27;s me Mario&#x27; // this also works ✅</code></pre><h3 id="f0e09b6c-d223-43d1-9f92-007cb406e548" class="">Backslashes</h3><p id="777c05ab-cbc0-4925-8b3b-f0a762c6d94a" class="">The backslash is used to escape special characters in strings such as:</p><ul id="c3a75334-b221-4e9e-a73e-f09ed4d5cc50" class="bulleted-list"><li>Single quote marks <code>\&#x27;</code></li></ul><ul id="99251aa2-29f3-40e2-8d75-f5b759c60646" class="bulleted-list"><li>Double quote marks <code>\&quot;</code></li></ul><ul id="07178bd3-ad9b-4699-80d4-ba72d054842a" class="bulleted-list"><li>End of line <code>\n</code></li></ul><ul id="e0666823-f35b-4753-ad84-036e44867380" class="bulleted-list"><li>Carriage return <code>\r</code></li></ul><ul id="d3f97bde-0858-4b6b-aba3-57a6ef317963" class="bulleted-list"><li>Tab <code>\t</code></li></ul><p id="d7bf3cee-754f-484e-8f1b-678035b8542c" class="">If you want to actually write a backslash, you need to escape it with another backslash: </p><pre id="be3643a9-db79-4449-bc91-694b04cecf4b" class="code code-wrap"><code>&quot;This is a backslash \\&quot;</code></pre><h2 id="801a4f90-e936-4853-b4db-11dc3cd35549" class="">Template Literals</h2><p id="fb12f6eb-6dcf-4fd7-9a57-0d23cfb7e32f" class=""><strong>Template literals</strong> are a special types of string introduced in ES6. Template literals begin and end with a backtick character <code>`</code>, as shown below: </p><pre id="5608d93a-2bca-470c-95be-56bb62aa5cc3" class="code code-wrap"><code>`Hello World`
+`Hello, It&#x27;s me Mario!` // Can contain quotes
+
+// Can contain line breaks, which are all converted to a Line Feed (\n)
+`This is the start...
+
+....and this is the end`</code></pre><p id="3a886f72-49fd-4fae-9f5a-4ec4e2befbbd" class="">They also allow interpolation of JavaScript code. This means that a JavaScript expression can be inserted inside a template string and the result will be displayed:  </p><pre id="d34f00a4-b966-4f38-a664-c0db104ea7c5" class="code code-wrap"><code>let age = 25, name = &quot;Elvis&quot;;
+console.log(`${name} is ${age + 3} years old in three years!`; 
+// Elvis is 28 years old in three years
+</code></pre><h2 id="10dd75f5-a8ac-433f-bfb3-4989155d3717" class="">Symbols</h2><p id="833061cf-e89a-4334-90e8-47ed8a1ef424" class="">Symbols were introduced as a new primitive value in ES6. They are used to create unique values, which help to avoid any name collisions.</p><p id="14e7138f-16d2-416d-8514-6780f8477450" class="">
+</p><p id="5b1dc6fb-d8e9-4141-9ce3-2d7dc6587aeb" class="">Symbols are the only primitives that don&#x27;t have a literal form. The only way to create them is to use the <code>Symbol()</code> function. </p><pre id="251cab4a-f606-48f1-a2a4-2043e1d6e12c" class="code code-wrap"><code>const uniqueID = Symbol();</code></pre><p id="87e8dd8f-4245-46ee-bfe8-bdbbe3835cf6" class="">I</p><p id="8fef94e2-90e6-48ee-a4c1-5de699c42c38" class="">It is recommended to add a description of the symbol inside the parentheses:</p><pre id="59f72852-5a9d-4acc-8779-82381f3e8264" class="code code-wrap"><code>const uniqueID = Symbol(&#x27;this is a unique ID&#x27;);</code></pre><p id="a5a458ca-d012-40b0-90d3-cec180c60bc4" class="">Because symbols are primitive values, the <code>typeof</code> operator should return a type of <code>&#x27;symbol&#x27;</code>: </p><pre id="731a5037-8620-46c5-b205-f6e40a13a756" class="code code-wrap"><code>typeof uniqueID; // &#x27;symbol&#x27;</code></pre><p id="c72c7875-3423-41f9-95d2-5b6da77b9af3" class="">The description acts as a string representation of the symbol and is used to log the symbol in the console, making it useful for debugging purposes:</p><pre id="b977864a-1b15-46b9-9b11-c6a14ce106d3" class="code code-wrap"><code>console.log(uniqueID); // Symbol(this is a unique ID)</code></pre><p id="279c01d9-9a5a-4833-8489-ad446a99ee59" class="">You can manually access the description using the <code>String()</code> function:</p><pre id="1670b4f5-fda3-45da-a21f-d07a21ce4ce8" class="code code-wrap"><code>String(uniqueID) // &#x27;Symbol(this is a unique ID)&#x27;</code></pre><p id="dc3c46b3-6354-4d1a-b475-ef53e48e4afc" class="">It is possible for two variables to point to the <em>same </em>symbol if the <code>for()</code> method is used when the symbol is created:</p><pre id="b1a25bc7-9608-4e33-9e82-0d82c8efe6b5" class="code code-wrap"><code>/*
+The variables A and B now both point to thesame symbolin memory. In this case the description &#x27;shared symbol&#x27; also acts as a shared identifier 
+for the symbol.
+*/
+const A = Symbol.for(&#x27;shared symbol&#x27;);
+const B = Symbol.for(&#x27;shared symbol&#x27;);</code></pre><p id="d9732823-cb73-4916-844d-e3179bfc52ad" class="">The main use-case for symbols is as object property keys. The uniqueness of symbols, mean that it’s impossible for the names of any properties to clash with each other if they are symbols.</p><h2 id="7a61ed3c-eab7-4d4c-9689-d23cd057574f" class="">Numbers</h2><p id="f58fd2a4-c8eb-47ed-9b14-66de6155c4ce" class="">Numbers can be <em>integers</em> (whole numbers, such as 5) or <em>floating point numbers </em>(often referred to as just &#x27;decimals&#x27; or &#x27;floats&#x27;, such as 2.045).</p><p id="6a1ced7b-9df8-4d6c-81cd-e3f862eb8d9f" class="">Examples of number literals:   </p><pre id="3a991e96-35c7-4634-bf72-7daaf2bf458d" class="code code-wrap"><code>typeof 25; // &quot;number&quot;
+typeof 2.045; // &quot;number&quot;
+
+let age = 28;
+console.log(age); // &quot;number&quot;</code></pre><p id="28c97eaf-535d-48ee-894f-b93aa0d2d685" class="">As demonstrated above, JavaScript doesn&#x27;t distinguish between integers and floating point decimals. Although in ES6, there&#x27;s a handy method called <code>Number.isInteger()</code> that can be used to check if a number is an integer. </p><pre id="6f36c169-e563-43af-897c-f59beb86eeb9" class="code code-wrap"><code>Number.isInteger(42); // true
+Number.isInteger(3.142); // false</code></pre><p id="005e89b9-5931-4874-9646-4dc24ea51df8" class="">Just like strings, numbers also have a constructor function: </p><pre id="0c8c642a-dce4-426d-a675-9c19f750fdf8" class="code code-wrap"><code>new Number(3); // 3</code></pre><h3 id="3d6359c3-6299-4e56-af60-b733108b13b6" class="">Octal and Hexadecimal Numbers</h3><p id="6cdac324-582d-428e-a4d1-c5f359bf0e11" class="">Numbers that start with <code>0x</code> are considered to be in hexadecimal (base 16) notation. In ES6 there&#x27;s also support for Octal literals (base 8) if a number starts with <code>0o</code> (the number <strong>zero</strong> followed by the letter <strong>&quot;o&quot;</strong>) and binary literals if a number starts with <code>0b</code>: </p><pre id="853a52cf-d167-4092-a8b0-0bb39b794fe9" class="code code-wrap"><code>console.log(0xAF); // 175
+console.log(0o47); //39
+console.log(0b1010); //10</code></pre><p id="1ead1e10-28d5-4f29-a217-db75c19f7686" class="">Exponential Notation</p><p id="81a731c0-ce73-44c2-968a-d317b788e8ab" class="">Numbers can be represented in exponential notation, which is shorthand for &quot;multiply by 10 to the power of&quot; </p><pre id="30b42308-58e5-4291-a5b0-9c77733add1a" class="code code-wrap"><code>1e6; // means 1 multiplied by 10 to the power 6 (a million)
+&lt;&lt; 1000000
+2E3; // 2 multiplied by 10^3 (two thousand)
+&lt;&lt; 2000
+
+2.5e-3; // means 2.5 multiplied by 10 to the power -3 (0.001)
+&lt;&lt; 0.0025</code></pre><h3 id="755c8b54-95e2-4abd-9d4a-068565307604" class="">Number methods</h3><p id="1fca7c94-712e-468b-92db-18aa4700e918" class="">Some common built-in methods in JavaScript are: </p><pre id="abe66603-4d90-4c5c-a232-19f07f3f5af4" class="code code-wrap"><code>5 .toExponential(); //Or
+5..toExponential();
+&gt;&gt; &quot;5e+0&quot;</code></pre><h2 id="de0a9da4-f114-4447-9ec8-15ac12237cd2" class="">Questions</h2><ol id="efc25cb7-47bb-4dae-80d4-ede1717ec914" class="numbered-list" start="1"><li>Is the support for ES6 widely available on all browsers or JavaScript runtime environments today?</li></ol><p id="5cfbaaba-e97b-42c4-88cb-d5412a4a5462" class="">
+</p></div></article></body></html>
