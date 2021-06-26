@@ -1,0 +1,762 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Objects in JavaScript</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5ae965eb-6124-4abe-982b-f29ad53541a9" class="page sans"><header><h1 class="page-title">Objects in JavaScript</h1></header><div class="page-body"><p id="915147a9-0b67-4631-bcd5-e3190948cdef" class="">An object in JavaScript is a self-contained collection of named properties that map to any JavaScript value such as strings, number, booleans, arrays, functions and even objects. If a property&#x27;s value is a function it is known as a <strong>method</strong>.</p><p id="4a5609e0-e09e-46bb-a727-61075010053b" class="">Objects are usually created to represent entities of the real world, like users, orders and so on. They are often used to keep any related information and functionality together in the same place.</p><h3 id="9ec4c78d-37f7-47f4-8d1c-8db019bd1f93" class="">An Example</h3><pre id="d6ee0ee4-1081-45ac-a6e0-f4e2ced774a8" class="code"><code>const employee = {
+	firstName: &quot;John&quot;,
+	lastName: &quot;Doe&quot;,
+	salary: 1000,
+	department: &quot;Engineering&quot;,
+	role: &quot;Junior Frontend Developer&quot;
+	printName() {
+		console.log(this.firstName + &quot; &quot; + this.lastname;
+	}
+}</code></pre><h2 id="31cc9f01-994e-40e5-b349-9363e9e26f07" class="">Creating Objects</h2><p id="95d4121e-4c87-4b04-acb0-5ec7cf83f6a3" class="">Objects can be created using an <em>object literal </em>or the inbuilt constructor function.</p><pre id="00fcd870-1ffe-4abe-9683-032864d4b577" class="code code-wrap"><code>// Object literal
+const user = {}
+
+// Creating object via a contructor function
+const user = new Object();</code></pre><p id="d5fa5e8b-5ca5-4fb9-82cd-4975c71771f0" class="">ES6 provides a shorthand method of creating objects if property key is the same as a variable name that the property value is assigned to: </p><pre id="f710c199-49c7-43a3-b900-ebdf2d5e3291" class="code code-wrap"><code>const name = &quot;Elvis Duru&quot;;
+const age = 25;
+
+// Old long way
+const user = {name: name, age: age};
+
+// Short ES6 way
+const user = {name, age}</code></pre><h2 id="2283558c-f6f6-4bc2-84ec-8993e616f29b" class="">Accessing Properties</h2><p id="779c998e-8aba-4d4a-a9f3-5f8afafc050a" class="">You can access the properties of an object using the dot notation or bracket notation:</p><p id="605cef17-f58b-4c1a-8b85-6c12eb8d580b" class=""> </p><pre id="e83cc709-a24b-4c81-9ce9-9c7cb77163e6" class="code code-wrap"><code>// Dot notation
+user.name
+&gt;&gt; &quot;Elvis Duru&quot;
+
+// Bracket notation
+user[&quot;name&quot;]
+&gt;&gt; &quot;Elvis Duru&quot;
+
+// If you try to access a property that does not exist you get undefined
+user.salary
+&gt;&gt; undefined
+
+// You can also call methods using the dot or bracket  notation
+employee.printName()
+employee[&quot;printName&quot;]()</code></pre><p id="53265230-f2b2-40ab-a010-4e73c9682f59" class="">The dot notation is common but the bracket notation has some advantages. It can let you access properties that don&#x27;t follow the variable naming rules. It also lets you evaluate an expression and use it as the property key:</p><pre id="e87e2dac-6e67-4ce1-a895-1e02fb47c760" class="code code-wrap"><code>user[&quot;na&quot; + &quot;me&quot;]
+&gt;&gt; &quot;Elvis Duru&quot;</code></pre><h2 id="5e441259-ee36-4f17-969c-4faa4ce1d7b1" class="">Checking if Properties or Methods Exist</h2><p id="7aae178a-694d-490b-a979-28c903bb4e66" class="">The <code>in</code> operator and the <code>hasOwnProperty()</code> method can be used to check whether an object has a particular property or method</p><pre id="8c179750-fffe-4bfa-9d28-6d8bb470d223" class="code code-wrap"><code>&#x27;age&#x27; in user
+&gt;&gt; true
+
+user.hasOwnproperty(&#x27;name&#x27;);
+&gt;. true</code></pre><h2 id="283b80ca-d7c3-413d-8ea1-7e5ac63312d8" class="">Finding all the Properties of an Object</h2><p id="572b9b33-e49f-4a2c-846d-8fd1cf705c66" class="">We can loop through all properties in an object using the <code>for in</code> loop:</p><pre id="b0c08923-4867-4561-89e5-78f4965b5d69" class="code code-wrap"><code>for (const key in user) {
+	console.log(`${key}: ${user[key]}`)
+}
+&gt;&gt; &quot;name: Elvis Duru&quot;
+&gt;&gt; &quot;age: 25&quot;
+
+/* To make sure an object&#x27;s own properties are returned, we can modify the example above
+*/
+
+// We can do this
+for (const key in user) {
+	if(user.hasOwnProperty(key)) {
+		console.log(`${key}: ${user[key]}`)
+	}
+}</code></pre><p id="df553a49-ae4a-4d4e-878c-612b2bc77453" class="">The <code>object.keys()</code> method returns an array of all the <strong>keys </strong>of an object. Also the <code>object.values()</code> method returns an array of all the <strong>values </strong>of an object.</p><pre id="d20b73e5-3419-488a-bbe4-1129553d2172" class="code code-wrap"><code>console.log(Object.keys(user))
+&gt;&gt; [&quot;name&quot;, &quot;age&quot;]
+
+console.log(Object.values(user))
+&gt;&gt; [&quot;Elvis Duru&quot;, 25]</code></pre><h2 id="39634d9f-a634-4cb4-8257-9f5a4be6f1a5" class="">Adding Properties</h2><p id="5ca73013-90e0-4bbb-82f5-27015fcf5b40" class="">New properties and methods can be added to an existing object at any time:</p><pre id="e27e21aa-e495-4f1f-b492-e3b8857f2b53" class="code code-wrap"><code>const user = {
+	firstName: &#x27;Elvis&#x27;,
+	lastName: &#x27;Duru&#x27;
+}
+
+user.middleName = &#x27;Ihechi&#x27;
+
+user
+&gt;&gt; {
+		firstName: &#x27;Elvis&#x27;,
+		lastName: &#x27;Duru&#x27;,
+		middleName: &#x27;Ihechi&#x27;
+	}</code></pre><p id="879ef194-e83c-4abe-8114-376ce2baf6c4" class="">Never rely on properties to always appear in the order they were entered.</p><h2 id="b9e3ff50-e308-4a3e-9f8d-975ca6d1df57" class="">Removing Properties</h2><p id="3a1bdd5c-a763-4122-b268-9f5ec7ec68fd" class="">You can use the <code>delete</code> operator to remove properties from an object</p><pre id="5717e08d-7ca2-47bd-92e1-daba93ea4f95" class="code code-wrap"><code>delete user.middlename;
+&gt;&gt; true
+user
+&gt;&gt; {
+			firstName: &#x27;Elvis&#x27;,
+			lastName: &#x27;Duru&#x27;
+		}</code></pre><h2 id="ae112284-0516-4bdc-aff6-5565b4424ebb" class="">Nested Objects</h2><p id="19189e0e-801a-4f4e-bf57-b7aa87774651" class="">It&#x27;s possible for objects to contain other objects and data types:</p><pre id="7329fd19-f80a-4c70-8fc4-364c3d57fa97" class="code code-wrap"><code>const user = {
+	firstName: &#x27;Elvis&#x27;,
+	lastName: &#x27;Duru&#x27;,
+	scores: [10, 10, 5, 9, 10],
+	abilities: {
+		speech: true,
+		flight: false,
+	}</code></pre><h2 id="aad898ef-55b1-4e37-86d3-4e68e00be13a" class="">Objects Are Copied By Reference</h2><p id="e62bb106-7c4a-4814-b4e5-ae364f4175f0" class=""> </p><p id="f15e052b-210c-4408-bc7c-1da572ca7bdd" class="">Just like arrays, objects are copied by reference.</p><pre id="26de3264-1e39-4d67-b636-2cfe6b2cd985" class="code code-wrap"><code>const userA = {name: &#x27;Elvis&#x27;}
+const userB = userA;
+// Changing the value of the name property in the object assigned to userB.
+userB.name = &#x27;Daniel&#x27;;
+// results in the name value of userA changing as well
+userA
+&gt;&gt; {name: &#x27;Daniel&#x27;}</code></pre><h2 id="afb3150b-de25-46a7-9b75-95c4a93dc6ce" class=""><code>this</code></h2><p id="e7490680-7f8a-4ec4-bd98-976249923d86" class="">To access an object, a method can use the <code>this</code> keyword. The value of <code>this</code> is the object that calls the method. For instance:</p><pre id="d9ef19d4-e5d8-43ab-b0e9-12ca92375b14" class="code code-wrap"><code>let user = {
+  name: &quot;John&quot;,
+  age: 30,
+
+  sayHi() {
+    // &quot;this&quot; is the &quot;current object&quot;
+    alert(this.name);
+  }
+
+};
+
+user.sayHi(); // John</code></pre><h3 id="958164e2-01bf-48f6-9118-ae3c485ede95" class=""><code>this</code> is not bound</h3><p id="146db2b3-5f7d-415f-8499-193f9c3cb84e" class="">In JavaScript, <code>this</code> can be used in any function, even if it&#x27;s not a method of an object.</p><pre id="d0cb9413-572b-400d-b0a6-acf7ed0dab0a" class="code code-wrap"><code>/*
+The value of this is evaluated at run-time, depending on the context.
+*/
+function sayHi() {
+  alert( this.name );
+}
+
+let user = { name: &quot;John&quot; };
+let admin = { name: &quot;Admin&quot; };
+
+// use the same function in two objects
+user.f = sayHi;
+admin.f = sayHi;
+
+// these calls have different this
+// &quot;this&quot; inside the function is the object &quot;before the dot&quot;
+user.f(); // John  (this == user)
+admin.f(); // Admin  (this == admin)
+
+admin[&#x27;f&#x27;](); // Admin (dot or square brackets access the method – doesn&#x27;t matter)
+
+// this is undefined in strict mode but the window object in non-strict mode.
+sayHi(); // undefined</code></pre><h3 id="d4d7cc4f-6957-4da2-97bc-1e5de5e83e1f" class="">Arrow functions have no <code>this</code></h3><p id="a841ec93-8ca2-4ef5-a3c9-2c48a5eeccc1" class="">Arrow functions don&#x27;t have their &quot;own&quot; <code>this</code>. If <code>this</code> is referenced from such function, it&#x27;s taken from the outer &quot;normal: function:</p><pre id="6b7d3029-8773-4a92-bda4-ace68af00543" class="code code-wrap"><code>let user = {
+  firstName: &quot;Ilya&quot;,
+  sayHi() {
+    let arrow = () =&gt; alert(this.firstName);
+    arrow();
+  }
+};
+
+user.sayHi(); // Ilya</code></pre><p id="be04f4df-2989-4970-b6f2-4869dbbfba87" class="">if you use arrow functions within an object method, the <code>this</code> context stays as the object, not <code>window</code>.</p><h3 id="c806a6e0-e210-4e6f-9f7b-d9ad74c1b4a9" class="">Changing <code>this</code> with <code>bind</code></h3><p id="39610df2-2388-4da6-9492-a77b90321c07" class=""><code>bind</code> is a method that&#x27;s present in every function. It allows you to change the <code>this</code> context. </p><pre id="26e748e2-8a5c-4679-8777-ff94c261191c" class="code code-wrap"><code>function sayThis () {
+  console.log(this)
+}
+const boundFunc = sayThis.bind({hippy: &#x27;hipster&#x27;})
+boundFunc()
+&gt;&gt; {hippy: &quot;hipster&quot;}</code></pre></div></article></body></html>
