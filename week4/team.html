@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8" />
+    
+    <title>Team Activity W4</title>
+
+    <style>
+      table {
+        margin: 2rem;
+        border-spacing: 0;
+      } 
+
+      td {
+        height: 100px;
+        width: 100px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: black;
+        text-align: center;
+      }
+
+      #row1 td {
+        border-top-style: none;
+      }
+
+      #row3 td {
+        border-bottom-style: none;
+      }
+
+      .col1 {
+        border-left-style: none;
+      }
+
+      .col3 {
+        border-right-style: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>Tic-Tac-Toe</h1>
+    <h2 class="turn-indicator">Turn: Player <span>X</span></h2>
+    <h1 id="result"></h1>
+    <table class="board" id="board">
+      <tr class="row" id="row1">
+        <td class="col1" id="0"></td>
+        <td class="col2" id="1"></td>
+        <td class="col3" id="2"></td>
+      </tr>
+      <tr class="row" id="row2">
+        <td class="col1" id="3"></td>
+        <td class="col2" id="4"></td>
+        <td class="col3" id="5"></td>
+      </tr>
+      <tr class="row" id="row3">
+        <td class="col1" id="6"></td>
+        <td class="col2" id="7"></td>
+        <td class="col3" id="8"></td>
+      </tr>
+
+    </table>
+    
+    <button id="reset" >Reset</button>
+
+    <script>
+      let isPlayer1 = true;
+      let marker = isPlayer1 ? "X" : "O";
+      let reset = document.getElementById("reset");
+      let result = document.getElementById("result");
+      let turnIndicator = document.querySelector(".turn-indicator span");
+      const winConditions = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [0, 4, 6]
+      ];
+
+      let state = ["", "", "", "", "", "", "", "", ""];
+      let isWin = false;
+
+      reset.addEventListener("click", resetGame)
+
+
+      let squares = document.querySelectorAll("td");
+      squares.forEach(square => {
+        square.addEventListener("touchend", placeMarker);
+
+        square.addEventListener("click", placeMarker);
+      });
+      
+      function placeMarker() {
+          if (isWin) {
+            return;
+          }
+          if (this.innerText) {
+            return;
+          }
+          this.innerText = marker;
+          const index = parseInt(this.getAttribute("id"));
+          state[index] = marker;
+          endOfGame();
+          changePlayer();
+        }
+
+
+      function changePlayer() {
+        isPlayer1 = !isPlayer1;
+        marker = isPlayer1 ? "X" : "O";
+        turnIndicator.innerText = marker;
+      }
+
+      function resetGame() {
+        squares.forEach(square => {
+          square.innerText = "";
+        });
+        isWin = false;
+        state = ["", "", "", "", "", "", "", "", ""];
+        isPlayer1 = true;
+        result.innerText = "";
+        marker = "X";
+        turnIndicator.innerText = marker;
+
+      }
+
+      function endOfGame() {
+        for (let i=0; i <= 7; i++) {
+          const condition = winConditions[i];
+          let a = state[condition[0]],
+          b = state[condition[1]],
+          c = state[condition[2]];
+          if ((a == "") || (b == "") || (c == "")) {
+            continue;
+          }
+          if (a==b && b==c) {
+            isWin = true;
+            break;
+          }
+        };
+        if (isWin) {
+          result.innerText = `Player ${marker} is the winner!`;
+        }
+        let isTie = state.every(el => {
+          return el != "";
+        });
+
+        if (isTie) {
+          result.innerText = `There is no winner!`;
+        }
+
+      }
+    </script>
+  </body>
+</html>
