@@ -1,0 +1,700 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Modern JavaScript</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0c58d0c2-9669-4690-bf30-010e31393f30" class="page sans"><header><h1 class="page-title">Modern JavaScript</h1></header><div class="page-body"><p id="9147f1c4-d8e4-49db-800b-a7f62909538e" class="">Various frameworks and tools that can be employed to improve the quality of your code. They make things more organized and easier to maintain, promoting reuse.</p><h2 id="28266f7b-36d4-41f8-a34e-8f891c48f14c" class="">Libraries</h2><p id="7b226c00-6785-46ed-ad4f-de54a30fb0ca" class="">A JavaScript library is a piece of code that provides several methods that make it easier to achieve common tasks. Some libraries include:</p><ul id="585cffe6-d493-4ed1-a3ce-bd7742e7fa4c" class="bulleted-list"><li>jQuery - originally a DOM manipulation library, but has grown much bigger</li></ul><ul id="9e1f910c-bc99-419e-a65d-3683a1d7b5be" class="bulleted-list"><li>Underscore &amp; Lodash - provides additional functionality to the language. They provide a large number of utility functions under the namespace <code>_</code>.<pre id="58dbab88-d351-4142-9871-a1b66c31ec26" class="code code-wrap"><code>// flatten an array
+_.flatten([1, [2, [3, [4]], 5]]);
+&lt;&lt; [1, 2, [3, [4]], 5]
+// return the last element in an array
+_.last([1, 2, 3]);
+&lt;&lt; 3
+// randomly shuffle an array
+_.shuffle([1, 2, 3, 4]);
+// =&gt; [4, 1, 3, 2]</code></pre></li></ul><h2 id="ea6b9766-ae0f-404c-b2d3-e08bd1c7f2b1" class="">Advantages and Disadvantages of Libraries:</h2><h3 id="35c2619f-1589-4765-8f19-474330ab8ed8" class="">Advantages</h3><ul id="673cb72c-dc92-4fe9-867a-6eed2eeece06" class="bulleted-list"><li>It will be used by lots of people and thoroughly tested. </li></ul><ul id="ee860cd0-a2d6-4a70-adab-3070492247fd" class="bulleted-list"><li>It will most likely have been optimized and battle-tested for nearly every eventuality. </li></ul><ul id="13e9c90f-d047-4371-ab81-d6115576a0f5" class="bulleted-list"><li>Using a library means you can be confident that your code will be as bullet-proof as possible in many browsers. </li></ul><ul id="9cf9617f-7faa-4681-8a22-3c610ec9d701" class="bulleted-list"><li>In addition, there will usually be lots of online documentation and a strong community ready to help out if you become stuck. </li></ul><ul id="1b320d40-33f9-4e63-b92b-d93f9667a507" class="bulleted-list"><li>The popularity of libraries often means that others will have encountered the same problem as you, often making it easy to find a solution by searching on the internet.</li></ul><h3 id="56293336-46f7-4600-bdb0-03da3c0f04ed" class="">Disadvantages</h3><ul id="71a015e9-65c7-4f34-9907-00e844cd77f5" class="bulleted-list"><li>You need to include the code for the library as well as your own code. This increases the amount of code that needs to be downloaded by a website, which in some cases can cause performance issues.</li></ul><ul id="2d7cb97b-a4eb-4c8e-9960-a795c63ffc61" class="bulleted-list"><li>Another problem with libraries is that they might fail to implement the functionality in the precise way that you want it to perform.</li></ul><ul id="a4916655-be25-43a5-a09f-5037e5ea10e9" class="bulleted-list"><li>Using a library can also make your code slower than using plain vanilla JavaScript.</li></ul><h2 id="f04c95bc-7dfe-4cea-8efc-543e9721aac4" class="">Modular JavaScript</h2><p id="0fb7582c-f62e-483a-b793-73bc10667b12" class="">A module is a self-contained piece of code that provides functions and methods that can then be used in other files and by other modules. This helps to keep code organized in separate, reusable files, which improves code maintainability. The code in a module should have a single purpose, and group together functions with distinct functionality.</p><h2 id="61ea6fdd-e5e7-4859-a2e3-0d4c14a2a7d2" class="">ES6 Modules</h2><p id="e05af02e-98f4-43d9-bbc5-1ec15875cb81" class="">For a long time, JavaScript didn&#x27;t support modules, but native support for them was finally added in ES6. They allow you to keep parts of code in self-contained files. </p><p id="1add8b88-89b3-4287-b14e-fa0ad3b925ba" class="">There are a few important points about modules that are worth keeping in mind:</p><ul id="a17830d6-9cbb-4029-887a-0fd1db428c9e" class="bulleted-list"><li>All code in modules is always in strict mode without the need for &#x27;use strict&#x27; and there is no way to opt out of this.</li></ul><ul id="857bd58d-3bd1-473b-8156-05ee76a1e477" class="bulleted-list"><li>A module has its own global scope, so any variables created in the top-level of a module can only be accessed within that module.</li></ul><ul id="6e4f8b72-6e9f-4aab-a9a3-6a7b806c6b2f" class="bulleted-list"><li>The value of <code>this</code> in the top level of a module is <code>undefined</code> , rather than the global object.</li></ul><ul id="ab31f222-c754-4ef9-9b7b-215046af4b04" class="bulleted-list"><li>You can&#x27;t use HTML-style comments in modules (although this isn&#x27;t very common in any JavaScript program these days).</li></ul><p id="e7d77678-8900-4fbe-af49-723577099d6f" class="">A ES6 module file is just a normal JavaScript file, but uses the keyword export to specify any values or functions that are to be made available from the module. For example, a very simple Pi module would have the following code saved in a file called &#x27;pi.js&#x27; that can be imported in another file, in this case the &#x27;main.js&#x27; file</p><pre id="04261531-4eb8-40a6-a7f8-310f693d5ba6" class="code code-wrap"><code>// pi.js
+export const PI = 3.1415926;
+
+// main.js
+import { PI } from &#x27;./pi.js&#x27;;</code></pre><p id="9a9e6bcf-f651-4da9-ae87-022dd5c41dc6" class="">Functions can also be exported from a module:</p><pre id="0cad456a-9fe2-4f0d-8abb-fa5a377da532" class="code code-wrap"><code>// stats.js
+
+function square(x) {
+    return x * x;
+}
+function sum(array, callback) {
+    if(callback) {
+        array = array.map(callback);
+    }
+    return array.reduce((a,b) =&gt; a + b );
+}
+function variance(array) {
+    return sum(array,square)/array.length - square(mean(array))
+}
+function mean(array) {
+    return sum(array) / array.length;
+}
+export {
+    variance,
+    mean
+}
+
+// main.js
+import  { mean, variance } from &#x27;./stats.js&#x27;;</code></pre><p id="1ab26b05-d492-4afe-9f6f-c3909a5a4b99" class="">Having more than one default export results in an error.</p><h2 id="d2a9a57a-c3ef-4cc5-af4c-6fbc3e070243" class="">MVC Frameworks</h2><p id="52e2dff2-690f-45f6-8932-d253fda0ce8e" class="">Model-View-Controller (MVC) is a design pattern that’s been used for a long time in server-side languages. It’s a common way of designing software, and used by server-side frameworks such as Ruby On Rails and Django. In recent years it has been used in JavaScript code to make it easier to organize large-scale web applications.</p><p id="fa54f760-b4c4-4575-9f7d-aafac3396cc1" class="">MVC separates an application into three distinct, independent components that interact with each other:</p><ul id="54038f22-cc90-4831-a631-a9cb56734ec1" class="bulleted-list"><li><strong>Models </strong>are objects that implement the functionality for creating, reading, updating and deleting (known as CRUD tasks) specific pieces of information about the application, as well as any other associated logic and behavior. In a to-do list application, for example, there would be a task model providing methods to access all the information about the tasks such as names, due dates and completed tasks. This data will often be stored in a database or some other container.</li></ul><ul id="31c6218c-d2a0-426d-b059-aa61e74529ac" class="bulleted-list"><li><strong>Views </strong>provide a visual representation of the model showing all the relevant information. In a web application, this would be the HTML displayed on a web page. Views also provide a way for users to interact with an application, usually via forms. In a to-do list application, the views would display the tasks as an HTML list with checkboxes that a user could tick to say a task had been completed.</li></ul><ul id="2514f23d-d0b4-4a24-9f83-4437c1a982c8" class="bulleted-list"><li><strong>Controllers </strong>link models and views together by communicating between them. They respond to events, which are usually inputs from a user (entering some data into a form, for example), process the information, then update the model and view accordingly. In a to-do list application, the controller functions would respond to the event of a user clicking on a check box and then inform the model that a task had been completed. The model would then update the information about that task.</li></ul><h2 id="a4fdaeb8-b699-4545-83e8-465a960a8e7c" class="">Templates</h2><p id="3cec0c98-38b8-432d-a2e0-7d6f60df9688" class="">Many MVC frameworks use templating languages to insert dynamic data into the page. Templating languages allow HTML to be separated from the JavaScript program, making maintenance easier because they’re no longer tightly coupled. The templates are often stored in separate files or inside their own script tags, so they can be reused and quickly edited in one place if changes need to be made.</p><p id="532fca7b-36b8-48b1-a59b-03f6d1ff2abc" class="">Some of the most popular template engines are shown in the list below:</p><ul id="b012081e-c795-45db-b013-b55d3c670682" class="bulleted-list"><li><a href="http://handlebarsjs.com/">Handlebars</a></li></ul><ul id="758995e5-c9da-4240-a3d7-853fa6a53f98" class="bulleted-list"><li><a href="https://github.com/pugjs/pug">Pug</a></li></ul><ul id="a95ab090-35a5-42b0-a2cd-d5f3cea6d80c" class="bulleted-list"><li><a href="http://www.embeddedjs.com/">EJS</a></li></ul><ul id="3ffc06b5-6136-48cd-8cfb-408771f75840" class="bulleted-list"><li><a href="https://github.com/janl/mustache.js">Mustache</a></li></ul><ul id="128aa825-854c-476b-90cf-3707e4f086d8" class="bulleted-list"><li><a href="http://mozilla.github.io/nunjucks/">Nunjucks</a></li></ul><h2 id="18d355a9-f455-4ae1-933d-c9926e1160ee" class="">View Libraries</h2><p id="5f378a12-35fe-4891-b8e2-7cd37ba53c02" class="">A number of libraries have sprung up that deal with just the view layer of MVC.</p><p id="37140240-f6dc-42f2-bc7e-528232c04259" class="">The two view libraries that have emerged as the most popular so far are React and Vue.js.</p><p id="73363e37-d170-4445-959d-415a5c056c30" class="">React and Vue.js both use the concept of a <em>virtual DOM </em>to speed up the process of updating HTML pages. Instead of directly changing the DOM, a virtual DOM is updated in memory. The real DOM is only updated when it needs to be and this is done by comparing any differences between the virtual DOM and actual DOM and only updating those elements that have actually changed. This is a process known as <em>reconciliation</em> and it&#x27;s what makes React and Vue extremely fast at rendering web pages.</p><p id="e53179f4-d2ee-4f6e-b283-642c720d6348" class="">The main differences between React and Vue.js are to do with their respective implementations. React uses its own language called JSX. This allows HTML and JavaScript to be mixed together in an elegant and concise way. The result is transformed into JavaScript that is then used to produce the HTML views. Vue.js uses HTML-like templates that can contain logic and directives along with JavaScript objects to store any data.</p><p id="27da9f19-3885-48d8-b45c-b53926709184" class="">Some other popular view libraries are:</p><ul id="d5c8b046-f681-42ff-a0c7-4bbaf1df31f9" class="bulleted-list"><li><a href="https://svelte.technology/">Svelte</a></li></ul><ul id="80f41eaa-2495-43f4-895e-cc637d61d45e" class="bulleted-list"><li><a href="https://www.infernojs.org/">Inferno</a></li></ul><ul id="9448710a-4875-46b2-943d-3d46da7d8394" class="bulleted-list"><li><a href="https://github.com/anthonyshort/deku">Deku</a></li></ul><ul id="fc70b084-87a2-472a-84b4-cf68ebcba839" class="bulleted-list"><li><a href="http://developit.github.io/preact/">Preact</a></li></ul><ul id="4aaf74e1-c55b-43d8-a043-36b582b3dd12" class="bulleted-list"><li><a href="https://github.com/Matt-Esch/virtual-dom">Virtual-DOM</a></li></ul><ul id="ecef73bd-8ae0-43eb-a479-011a8168c9cc" class="bulleted-list"><li><a href="http://moonjs.ga/">Moon</a></li></ul><h2 id="f932b7bf-d7ec-4366-806d-2f39f8f42b75" class="">Package Managers</h2><p id="ba0ca3bb-4928-4241-8a11-cbdf78dd50ca" class="">As modules have become more widely used in JavaScript, there’s been a need for tools to manage them. Package managers allow developers to download modules from a central repository. A package is just a directory with one or more files of code, as well as a <code>package.json</code> file that contains information about the code in the package.</p><p id="9c555dee-3ee8-4373-8a59-4323cbd4a67b" class="">When you start to use more modules, you’ll find that some of them depend on other modules to work. These are known as <code>dependencies.</code> Dependency management is the process of ensuring that all the dependencies a module requires are met. This can be difficult to do manually once a project becomes large, so package managers can also help with dependency management.</p><h3 id="0cc72da6-99cb-4550-9393-8ed9055fdcda" class="">npm</h3><p id="7a630890-5be6-4166-b230-bd924b83bfae" class="">The Node Package Manager was developed soon after Node.js was introduced to allow JavaScript code to be shared by developers. It has since grown into the largest repository of code libraries available. npm allows you to install JavaScript packages onto your machine. Some packages rely on other packages, so npm acts as a <em>dependency manager.</em></p><p id="87ec2a1b-ef04-45d1-89e8-f0b9db2294b2" class="">
+</p><p id="c2935899-3e1a-4f94-937f-2247a5aeaa71" class="">Some useful npm commands:</p><pre id="3c14bced-2e0d-49a7-9900-023ff6312ea5" class="code code-wrap"><code>// used when you start a new project. Creates a package.json file.
+npm init
+// used to install an npm package, i.e. the Lodash library in this case
+npm install --save lodash
+// To install a package as a devDependency, you add the --save-dev flag
+npm install --save-dev jest
+
+// Installing a package globally
+npm install --global lodash
+
+// Listing installed packages
+npm list
+
+// If you want to see packages you installed directly
+npm list --depth=0
+
+// You can also list globally installed packages
+npm list --global
+
+// List outdated packages
+npm outdated
+
+// List outdated packages installed globally
+npm outdated -g
+
+// Update a package
+npm update jest
+
+// Update all packages
+npm update
+
+// Update all global packages
+npm update --global
+
+// Uninstall a package
+npm uninstall lodash</code></pre><h3 id="9515486d-494a-4b34-b266-0c7fc3290d94" class="">Yarn</h3><p id="f72ce092-8a2b-499a-9a66-48c7a77add15" class="">yarn is another alternative to npm. It was developed to try and get around some problems that npm had with the speed and consistency of installing packages, as well as some security concerns to do with npm allowing packages to run on installation.</p><h2 id="8f545885-d74a-4f63-91e8-92d3dff3c156" class="">Content Delivery Networks</h2><p id="8a917218-8535-4cad-9b44-68d3a0d8ddac" class=""><strong>Content delivery networks</strong>(CDNs) are systems of distributed servers that can deliver web resources, such as JavaScript, CSS or image files to a user based on their geographic location. This means they’re able to deliver the content quickly and efficiently with a high degree of availability. These resources also get cached on the user&#x27;s machine, meaning that less requests need to be made to download the resource.</p><p id="8f0126bc-7b85-41db-83fc-1037add5fa9e" class=""><code>unpkg</code>is a <em>global content delivery network </em>(or CDN) that allows you to include any package from npm in a web page without having to install it on your own machine. Using a CDN, such as unpkg, is a good way to quickly add a npm package to your project, especially if you just want to test it out. But using this approach has some drawbacks. Some libraries, such as React, put the burden of processing onto the browser, rather than when the code is transpiled. This is fine when experimenting, but in a production environment, this would take too much toll on the browser, and result in a sub-optimal experience for the user. For this reason, you will eventually need to consider using a build tool such as Webpack to take care of managing any external libraries that you use, and for that reason, this is covered later in the chapter.</p><h2 id="569aa631-7c2c-4513-88de-c9cfbb3edf9b" class="">Transpiling Code</h2><p id="f8827b52-b9e3-49b6-8109-b5dab32caef4" class="">Because browsers struggle to keep up with the fast-moving pace of ECMAScript versions, a code transpiler allows you to write your code in the latest version of ECMAScript, using all the latest features, then convert it into an older variant of JavaScript that is compatible with most browsers.</p><p id="55c7c64a-0ed6-47c4-b73e-2a886251148c" class="">Babel is the most popular transpiler for converting the most up-to-date version of ECMAScript into an older flavor of JavaScript. Some more examples are:</p><ul id="59d4581c-4d3b-4b3c-8a4c-f471408d4722" class="bulleted-list"><li><a href="http://coffeescript.org/">CoffeeScript</a></li></ul><ul id="9e78e25f-c022-45b0-a3b2-02fe59158f1c" class="bulleted-list"><li>TypeScript</li></ul><ul id="216d9102-810a-450c-b84a-62ee4a731058" class="bulleted-list"><li>Dart</li></ul><h2 id="f7594047-8da6-448c-b3e8-b7a2bbae8e7d" class="">Minification</h2><p id="05d9133d-96db-4e50-8200-334f8595aec6" class="">Minification is the process of removing any unnecessary characters from your code to reduce the file size. This includes all comments, whitespace, and other characters that are superfluous. </p><p id="931bf6d9-7d2f-4bd9-9215-c138042eb467" class="">Tools are available to do this, known as<em>minifiers</em>. Some popular choices include:</p><ul id="73b1c6ec-ec66-4bc5-9e90-6e531baf4382" class="bulleted-list"><li><a href="https://www.npmjs.org/package/yui">YUI Compressor</a></li></ul><ul id="9fdf30e6-97e4-48b9-ac87-5d87d8c76fae" class="bulleted-list"><li><a href="https://developers.google.com/closure/compiler/">Google’s Closure</a></li></ul><ul id="7b7d6565-8741-4f67-94cf-1dd29c5af884" class="bulleted-list"><li><a href="https://github.com/mishoo/UglifyJS">UglifyJS</a></li></ul><h2 id="db2433cd-e972-4960-8758-df44b09f6639" class=""><strong>Webpack</strong></h2><p id="c3cbad5e-5605-42fa-a7cd-04b19cbbf199" class="">Webpack is a module bundler that takes all the JavaScript files used in your project and bundles them altogether in one file.</p><p id="18d184c8-cf03-4f75-9a56-b95cc962beb6" class="">Webpack also uses the concept of &#x27;loaders&#x27;, which allows you to perform tasks such as:</p><ul id="43b4aee2-ba40-4b09-b33a-5011110e2533" class="bulleted-list"><li>Transpiling code</li></ul><ul id="d5aaad8b-6013-4c8f-aca3-ad9e3a50b91f" class="bulleted-list"><li>Minifying code</li></ul><ul id="5003c1ea-74a6-47ed-a65f-173a5710ac71" class="bulleted-list"><li>Linting code</li></ul><ul id="efc6848d-0dbb-433c-b7eb-aedb356f40b8" class="bulleted-list"><li>Testing code</li></ul><ul id="a4f06a3e-e5ac-4aeb-8e49-0b6f392754b5" class="bulleted-list"><li>Compiling CSS preprocessor files (such as Sass, Less or Stylus) into standard CSS files.</li></ul><p id="c5f51f58-9339-4226-8307-d02d25c47765" class="">Webpack’s loaders also let you compile multiple CSS and image files into a single destination folder. It&#x27;s also possible to write your own loader file to automate a specific task.</p><p id="29646cee-da87-4457-b283-e5d8bfc5d2c4" class="">
+</p><h2 id="4837a60d-9191-472a-beec-63e04dbe950c" class="">Questions</h2><p id="4b8c922a-3434-41ab-bd75-c4d2058416bf" class="">What are some open source projects that can teach me how to organize my project&#x27;s files?</p></div></article></body></html>
