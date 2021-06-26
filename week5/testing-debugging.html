@@ -1,0 +1,925 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Testing and Debugging</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			white-space: pre-wrap;
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			text-indent: -1.7em;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {}
+
+		.highlight-gray {
+			color: rgb(155, 154, 151);
+		}
+
+		.highlight-brown {
+			color: rgb(100, 71, 58);
+		}
+
+		.highlight-orange {
+			color: rgb(217, 115, 13);
+		}
+
+		.highlight-yellow {
+			color: rgb(223, 171, 1);
+		}
+
+		.highlight-teal {
+			color: rgb(15, 123, 108);
+		}
+
+		.highlight-blue {
+			color: rgb(11, 110, 153);
+		}
+
+		.highlight-purple {
+			color: rgb(105, 64, 165);
+		}
+
+		.highlight-pink {
+			color: rgb(173, 26, 114);
+		}
+
+		.highlight-red {
+			color: rgb(224, 62, 62);
+		}
+
+		.highlight-gray_background {
+			background: rgb(235, 236, 237);
+		}
+
+		.highlight-brown_background {
+			background: rgb(233, 229, 227);
+		}
+
+		.highlight-orange_background {
+			background: rgb(250, 235, 221);
+		}
+
+		.highlight-yellow_background {
+			background: rgb(251, 243, 219);
+		}
+
+		.highlight-teal_background {
+			background: rgb(221, 237, 234);
+		}
+
+		.highlight-blue_background {
+			background: rgb(221, 235, 241);
+		}
+
+		.highlight-purple_background {
+			background: rgb(234, 228, 242);
+		}
+
+		.highlight-pink_background {
+			background: rgb(244, 223, 235);
+		}
+
+		.highlight-red_background {
+			background: rgb(251, 228, 228);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(55, 53, 47, 0.6);
+			fill: rgba(55, 53, 47, 0.6);
+		}
+
+		.block-color-brown {
+			color: rgb(100, 71, 58);
+			fill: rgb(100, 71, 58);
+		}
+
+		.block-color-orange {
+			color: rgb(217, 115, 13);
+			fill: rgb(217, 115, 13);
+		}
+
+		.block-color-yellow {
+			color: rgb(223, 171, 1);
+			fill: rgb(223, 171, 1);
+		}
+
+		.block-color-teal {
+			color: rgb(15, 123, 108);
+			fill: rgb(15, 123, 108);
+		}
+
+		.block-color-blue {
+			color: rgb(11, 110, 153);
+			fill: rgb(11, 110, 153);
+		}
+
+		.block-color-purple {
+			color: rgb(105, 64, 165);
+			fill: rgb(105, 64, 165);
+		}
+
+		.block-color-pink {
+			color: rgb(173, 26, 114);
+			fill: rgb(173, 26, 114);
+		}
+
+		.block-color-red {
+			color: rgb(224, 62, 62);
+			fill: rgb(224, 62, 62);
+		}
+
+		.block-color-gray_background {
+			background: rgb(235, 236, 237);
+		}
+
+		.block-color-brown_background {
+			background: rgb(233, 229, 227);
+		}
+
+		.block-color-orange_background {
+			background: rgb(250, 235, 221);
+		}
+
+		.block-color-yellow_background {
+			background: rgb(251, 243, 219);
+		}
+
+		.block-color-teal_background {
+			background: rgb(221, 237, 234);
+		}
+
+		.block-color-blue_background {
+			background: rgb(221, 235, 241);
+		}
+
+		.block-color-purple_background {
+			background: rgb(234, 228, 242);
+		}
+
+		.block-color-pink_background {
+			background: rgb(244, 223, 235);
+		}
+
+		.block-color-red_background {
+			background: rgb(251, 228, 228);
+		}
+
+		.select-value-color-default {
+			background-color: rgba(206, 205, 202, 0.5);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(155, 154, 151, 0.4);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(140, 46, 0, 0.2);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(245, 93, 0, 0.2);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(233, 168, 0, 0.2);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(0, 135, 107, 0.2);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(0, 120, 223, 0.2);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(103, 36, 222, 0.2);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(221, 0, 129, 0.2);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 0, 26, 0.2);
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="8e84fb97-dca2-4736-9c12-f8a19a015015" class="page sans">
+		<header>
+			<h1 class="page-title">Testing and Debugging</h1>
+		</header>
+		<div class="page-body">
+			<h2 id="6fbf733c-4029-4407-8e55-e3ec83c4ac81" class="">Errors, Exceptions, and Warnings</h2>
+			<p id="b2cf729a-701b-4553-9ed6-3479c168d2a9" class="">Errors happen when something goes wrong in a program. </p>
+			<p id="452e92c2-2db1-4a9c-a4ad-3b8f7c2715fd" class="">They are usually caused by one of the following:</p>
+			<ul id="18cd190e-1507-473d-8ec8-197095da3a97" class="bulleted-list">
+				<li>System error ― there’s a problem with the system or external devices with which the program is interacting.
+				</li>
+			</ul>
+			<ul id="4c5f3374-9d2c-4c80-a4c9-f1dbb62a2006" class="bulleted-list">
+				<li>Programmer error ― the program contains incorrect syntax or faulty logic; it could even be as simple as a
+					typo.</li>
+			</ul>
+			<ul id="a19b7be1-3d82-4866-9452-b8265bee5b79" class="bulleted-list">
+				<li>User error ― the user has entered data incorrectly, which the program is unable to handle.</li>
+			</ul>
+			<h3 id="6a45f58a-ea56-4ac1-82d4-a8683303ba0a" class="">Exceptions</h3>
+			<p id="ebfe83fb-a8ed-4386-a466-d62d451483d9" class="">An exception is an error that produces a return value that
+				can then be used by the program to deal with the error.</p>
+			<h3 id="4e4a915d-6682-4040-abb3-e0b3f821feff" class="">Stack Traces</h3>
+			<p id="0787fa91-815c-4720-82f5-6bae7e1151ce" class="">An exception produces a <strong>stack trace</strong>. This
+				is a sequence of functions or method calls that lead to the point where the error occurred. A stack trace will
+				work backwards from the point at which the error occurred to identify the original function or method that
+				started the sequence.</p>
+			<p id="2693e4e3-b07f-47e9-8078-8ea700f44aaa" class="">Example of a stack trace</p>
+			<pre id="ebaf0748-3a7d-4da5-90a0-9dfea6efe63e" class="code code-wrap"><code>function three(){ unicorn(); }
+function two(){ three(); }
+function one(){ two(); }
+one();
+&lt;&lt; index.html:13 Uncaught ReferenceError: unicorn is not defined
+    at three (index.html:13)
+    at two (index.html:17)
+    at one (index.html:21)
+    at index.html:24`</code></pre>
+			<p id="828b5598-8574-4434-b485-75375eb4e593" class="">In this example, we have three functions: function one()
+				invokes function two() , which then invokes function three() . Function three() then invokes the unicorn()
+				function that doesn&#x27;t exist and causes an error. We can use the stack trace to work backwards and see that
+				this error was caused by invoking the function one() in the first place.</p>
+			<h3 id="66c8ae5e-5fb7-418c-b96c-413238fe906f" class="">Warnings</h3>
+			<p id="350830e4-ae86-49be-b439-d8d1332df47f" class="">A warning can occur if there’s an error in the code that
+				isn&#x27;t enough to cause the program to crash. This means the program will continue to run after a warning. It
+				can be problematic, since the issue that produced the warning may cause the program to continue running
+				incorrectly.</p>
+			<h2 id="50044fa2-5e11-4242-aa48-cd35385dc45e" class="">Strict Mode</h2>
+			<p id="4176f34c-0a74-4271-955c-25b1e7d8e3b3" class="">ECMAScript 5 introduced a strict mode that produces more
+				exceptions and warnings and prohibits the use of some deprecated features. This is due to the fact that strict
+				mode considers coding practices that were previously accepted as just being &#x27;poor style&#x27; as actual
+				errors. Strict mode encourages a better quality of JavaScript to be written, so its use is recommended.</p>
+			<p id="3825ca89-f31d-41da-92b1-0c34ac9a81d2" class="">To enable strict mode, simply add the following string to
+				the first line of a JavaScript file:</p>
+			<pre id="ca698ab8-c08c-410c-a8a9-ca5366a1c7a3" class="code code-wrap"><code>&#x27;use strict&#x27;</code></pre>
+			<h2 id="5564c9fe-3d7a-438d-bd64-9e9309b3a856" class="">Linting Tools</h2>
+			<p id="4051702f-d2c4-44e7-8cc9-ad0b3f6bda70" class="">Linting tools such as <strong>JS Lint</strong>, <strong>JS
+					Hint</strong>, and <strong>ES Lint</strong> can be used to test the quality of JavaScript code, beyond simply
+				using strict mode. They are designed to highlight any sloppy programming practices or syntax errors, and will
+				complain if certain style conventions are not followed, such as how code is indented. They are also useful for
+				enforcing a programming<strong> style guide</strong></p>
+			<h2 id="4e568867-0864-48f4-b5b2-a6bded0c05e8" class="">Debugging in the Browser</h2>
+			<h3 id="93197e77-1c2c-4580-9db0-c91e9ca61b80" class="">Using the Console</h3>
+			<p id="bd76bd21-4bee-4822-ac36-907c567d847f" class="">Modern JavaScript environments have a <code>console</code>
+				object that provides a number of methods for logging information and debugging.</p>
+			<h3 id="2e99817e-696b-428e-a67f-a9c12556c062" class="">Debugging Tools</h3>
+			<p id="286ca00f-0f8d-4b53-bfd3-42269241c3c5" class="">Modern browsers have debugging tools that allow you to set
+				breakpoints in your code that will pause it at certain points. One of the most useful commands is the
+				<code>debugger</code> keyword. This is it in action:</p>
+			<pre id="738063a3-de0a-4c7b-a305-236baa53e058" class="code code-wrap"><code>function amIOldEnough(age){
+    debugger;
+        if (age &lt; 12) {
+        debugger;
+        return &#x27;No, sorry.&#x27;;
+        } else if (age &lt; 18) {
+        debugger;
+        return &#x27;Only if you are accompanied by an adult.&#x27;;
+        } else {
+        debugger;
+        return &#x27;Yep, come on in!&#x27;;
+    }
+}
+amIOldEnough(16);</code></pre>
+			<figure id="9e0f1bd0-3e7f-485d-a6e7-57f5c84b5491" class="image"><a href="images/Untitled.png"><img
+						style="width:940px" src="images/Untitled.png" /></a></figure>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="fc8129a0-6b0f-4e09-9b26-08816d0b2679">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Remember to remove any references to the <code>debugger </code>command before shipping
+					any code, otherwise the program will appear to freeze when people try to use it!</div>
+			</figure>
+			<h3 id="7d63257f-4f84-45d6-9a82-08061cbb825b" class="">Error Objects</h3>
+			<p id="d718a83c-f35e-4950-b31b-11e58f1cd23d" class="">An <code>error</code> object can be created by the host
+				environment when an exception occurs, or it can be created in the code using a constructor function, like so:
+			</p>
+			<pre id="ef4fbbb8-0b53-4dca-9640-00a82f45748e" class="code code-wrap"><code>const error = new Error();
+
+// The constructor function takes a parameter that&#x27;s used as the error message:
+const error = new Error(&#x27;Oops, something went wrong&#x27;);</code></pre>
+			<p id="dfa96fa2-cce2-463f-9e51-b65b3c473d66" class="">There are seven more error objects used for specific errors:
+			</p>
+			<ul id="0b179e01-b541-4761-85fb-b173de911b4b" class="bulleted-list">
+				<li><code>EvalError</code> is not used in the current ECMAScript specification and only retained for backwards
+					compatibility. It was used to identify errors when using the global <code>eval()</code> function.</li>
+			</ul>
+			<ul id="202bfdd6-92f6-43a4-a5e3-50ca81b99191" class="bulleted-list">
+				<li><code>RangeError</code> is thrown when a number is outside an allowable range of values.</li>
+			</ul>
+			<ul id="6f872b8b-458e-438b-8c0d-10804665340c" class="bulleted-list">
+				<li><code>ReferenceError</code> is thrown when a reference is made to an item that doesn’t exist. For example,
+					calling a function that hasn&#x27;t been defined.</li>
+			</ul>
+			<ul id="f377fb89-93d8-43fc-979a-282f07f12dfc" class="bulleted-list">
+				<li><code>SyntaxError</code> is thrown when there’s an error in the code’s syntax.</li>
+			</ul>
+			<ul id="ccb0c051-a547-4538-abf8-199fa430bb90" class="bulleted-list">
+				<li><code>TypeError</code> is thrown when there’s an error in the type of value used; for example, a string is
+					used when a number is expected.</li>
+			</ul>
+			<ul id="9e06b8c3-ee7d-45f5-b7d2-8af196f4b7a1" class="bulleted-list">
+				<li><code>URIError</code> is thrown when there’s a problem encoding or decoding the URI.</li>
+			</ul>
+			<ul id="6a9b0cee-bdb8-4cfb-8f35-ede42403b749" class="bulleted-list">
+				<li><code>InternalError</code> is a non-standard error that is thrown when an error occurs in the JavaScript
+					engine. A common cause of this too much recursion.</li>
+			</ul>
+			<p id="f4ad6063-52bc-4d7f-aaa4-5ed3b7592ce7" class="">These error objects can also be used as constructors to
+				create custom error objects:</p>
+			<pre id="5c8d3ce7-9ab0-40c1-a295-3d7fdf08e59d"
+				class="code code-wrap"><code>const error = new TypeError(&#x27;You need to use numbers in this function&#x27;);</code></pre>
+			<p id="6cac7eab-c3fe-4653-93ea-132474cfd66b" class="">All <code>error</code> objects have a number of properties,
+				but they’re often used inconsistently across browsers. The only properties that are generally safe to use are:
+			</p>
+			<ul id="d3d2c9d3-556c-4cc6-b774-34f000944d60" class="bulleted-list">
+				<li>The <code>name</code> property returns the name of the error constructor function used as a string, such as
+					&#x27;Error&#x27; or &#x27;ReferenceError&#x27;.</li>
+			</ul>
+			<ul id="86a3194c-1831-4e43-8628-6e3314e6dbeb" class="bulleted-list">
+				<li>The <code>message</code> property returns a description of the error and should be provided as an argument
+					to the <code>Error</code> constructor function.</li>
+			</ul>
+			<ul id="d069625c-f759-47a2-af24-e53c06ab7753" class="bulleted-list">
+				<li>The <code>stack</code> property will return a stack trace for that error. This is a non-standard property
+					and it’s recommended that it is not safe to use in production sites.</li>
+			</ul>
+			<h3 id="576b85b3-42c2-4fe4-999b-51c97be2b76b" class="">Throwing Exceptions</h3>
+			<p id="127a68fb-f522-4417-9a05-9bb766088135" class="">It&#x27;s possible to throw your own exceptions using the
+				<code>throw</code> statement. The <code>throw</code> statement immediately causes the execution of a program to
+				stop. It is best practice, however, to throw an error object that can then be caught in a <code>catch</code>
+				block:</p>
+			<pre id="5aa2e764-a068-4797-ab1f-ad83e5330cf2"
+				class="code code-wrap"><code>throw new Error(&#x27;Something is wrong with your input!&#x27;);</code></pre>
+			<h2 id="749a300b-b308-419e-9278-706d1b802907" class="">Exception Handling</h2>
+			<p id="5bcf1f24-7be9-4790-85bd-ffe153d5fb1a" class="">When an exception occurs, the program terminates with an
+				error message. While this is okay in development, it does not fit well in production because it will appear as
+				if the program has crashed.</p>
+			<h3 id="561a52b3-c5e9-4f9f-8c96-1a0fdde78113" class="">try , catch , and finally</h3>
+			<p id="984d8f51-e814-4dca-bb0b-7ade2c7c8295" class="">If we suspect that a piece of code will result in an
+				exception, we can wrap it in a <code>try</code> block. This will run the code inside the block as normal, but if
+				an exception occurs it will pass the error object that is thrown onto a catch block. Here’s a simple example
+				using a squareRoot() function:</p>
+			<pre id="6d6ec454-0a62-43d6-a770-d8d5ba5c2e65" class="code code-wrap"><code>function imaginarySquareRoot(number) {
+    &#x27;use strict&#x27;;
+    try {
+        return String(squareRoot(number));
+    } catch(error) {
+        return squareRoot(-number)+&#x27;i&#x27;;
+    }
+}</code></pre>
+			<p id="9fdd6d96-2a8d-493e-9183-1aa5cd133914" class="">The code inside the <code>catch </code>block will only run
+				if an exception is thrown inside the try block. A <code>finally</code> block can be added after a catch block.
+				This will always be executed after the try or catch block, regardless of whether an exception occurred or not.
+				It is useful if you want some code to run in both cases.</p>
+			<h2 id="cd6539f7-365e-4539-b548-c56094e06937" class="">Test Driven Development</h2>
+			<p id="039be17b-f922-436d-8577-afb49b0be6f7" class=""><strong>Test-driven development</strong>(TDD) is the process
+				of writing tests before any actual code. Obviously these tests will initially fail, because there is no code to
+				test. The next step is to write some code to make the tests pass. After this, the code is refactored to make it
+				faster, more readable, and remove any repetition. The code is continually tested at each stage to make sure it
+				continues to work. This process should be followed in small piecemeal chunks every time a new feature is
+				implemented, resulting in the following workflow:</p>
+			<p id="c5a744e3-c577-4310-b7ec-bc76a331dace" class="">1. Write tests (that initially fail)
+				2. Write code to pass the tests
+				3. Refactor the code
+				4. Test refactored code
+				5. Write more tests for new features</p>
+			<h3 id="e5e9f31c-29d5-4eec-8eb1-da2307445da7" class="">Testing Frameworks</h3>
+			<p id="15923027-444f-474f-bb14-d21bd5ace63d" class=""><strong>Jest </strong>- a TDD framework, created by
+				Facebook, that has gained a lot of popularity recently. It makes it easy to create and run tests by providing
+				helper methods for common test assertions.</p>
+			<p id="f012997d-7db1-4d67-84dc-b4c6e18605da" class="">
+			</p>
+			<h2 id="db0d621e-fe61-47f9-946e-02430942d413" class="">Questions</h2>
+			<ul id="f6b2fedb-3c9a-44ea-b2c8-a99ee17a4700" class="bulleted-list">
+				<li>Apart from TDD is there any other paradigm of developing apps?</li>
+			</ul>
+			<ul id="c5703c7a-0af3-485e-9f6c-4159fde319d5" class="bulleted-list">
+				<li>Is Jest the best TDD library available?</li>
+			</ul>
+		</div>
+	</article>
+</body>
+
+</html>
