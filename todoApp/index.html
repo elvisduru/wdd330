@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="app.css" />
+  <title>Todo List App</title>
+</head>
+
+<body>
+  <header>
+    <h1>
+      todo
+      <span>list</span>
+    </h1>
+    <h2>A simple todo list app built with JS</h2>
+  </header>
+
+  <section class="form">
+    <input type="text" id="todoInput" placeholder="Add your task and press enter." />
+    <div id="controls">
+      <p>Filter By:</p>
+      <button id="all" class="selected">All</button>
+      <button id="completed">Completed</button>
+      <button id="incomplete">Incomplete</button>
+    </div>
+  </section>
+
+  <ul id="list"></ul>
+
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>
