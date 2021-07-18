@@ -1,0 +1,982 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Further Functions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ec045929-f354-48ec-aba4-9d07e482054b" class="page sans"><header><h1 class="page-title">Further Functions</h1></header><div class="page-body"><h1 id="cdcba0d3-9af3-4a19-afe1-ed14421ac494" class="">Function properties and methods</h1><p id="c3b873df-9114-4714-b24a-d519155a2d33" class="">Because functions are first-class objects, they can have properties and methods. For example all functions have a <code>length</code> property that returns the number of parameters the function has.</p><pre id="90f2cff1-6579-4802-8737-55acc9c84335" class="code code-wrap"><code>function square(x) {
+	return x * x;
+}
+square.length();
+&gt;&gt; 1</code></pre><p id="fe8556e5-b546-4081-96b0-caabf1c48bab" class="">The <code>call()</code> method can be used to set the value of <code>this</code> inside a function to an object that is provided in the first argument:</p><pre id="039ef78e-fc5c-42e6-923f-295dda983122" class="code code-wrap"><code>function sayHello(){
+    return `Hello, my name is ${ this.name }`;
+}
+const clark = {name: &#x27;Clark&#x27;};
+const bruce = { name: &#x27;Bruce&#x27; };
+sayHello.call(clark);
+&gt;&gt; &#x27;Hello, my name is Clarke&#x27;
+sayHello.call(bruce);
+&gt;&gt; &#x27;Hello, my name is Bruce&#x27;</code></pre><p id="651a84f8-29d8-4d95-992a-2cf07d3250dd" class="">If a function doesn’t refer to an object as this in its body, it can still be called using the call() method, but you need provide null as its first argument.</p><pre id="80be6e38-08e0-4a7f-9cb1-69a41f0eef7b" class="code code-wrap"><code>square.call(null, 4);
+
+// apply() works except arguments are provided in an array
+square.apply(null, [4]);</code></pre><h3 id="e7dff032-2c91-4a8c-abf3-f2a772b3aa81" class="">Custom Properties</h3><p id="a915e01a-30ba-4b0f-ae24-477fb76d3a78" class="">You can as well add new properties to a function is you wish just as its done with regular objects.</p><h3 id="cfb1c492-2def-49fc-b945-d6eeed9aa352" class="">Memoization</h3><p id="c1a4f35b-e193-4288-be54-f7f5780dfc0c" class="">A useful feature of this is that it provides result caching, or <strong>memoization</strong>.</p><pre id="b3abc2ef-b4b6-47d9-9ffc-8287b8816a86" class="code code-wrap"><code>function square(x){
+    square.cache = square.cache || {};
+    if (!square.cache[x]) {
+        square.cache[x] = x*x;
+    }
+    return square.cache[x]
+}
+
+// Calling the function a few times, we see that the cache object stores the results:
+square(3);
+&gt;&gt; 9
+square(-11);
+&gt;&gt; 121
+square.cache;
+&gt;&gt; {&quot;3&quot;: 9, &quot;-11&quot;: 121}</code></pre><h1 id="396c9e09-582e-46bd-b8a5-51b7b8386c59" class="">Immediately Invoked function expressions</h1><p id="55a48996-2cfd-4ef0-9281-304245925a44" class="">An<strong> Immediately Invoked Function Expression</strong>– or <strong>IIFE</strong> – (pronounced &#x27;<strong>iffy</strong>&#x27;) is an anonymous function that is invoked as soon as it’s defined. </p><p id="cbc74f98-a56a-49b2-a56f-41977fc3964f" class="">IIFEs are a useful way of performing a task while keeping any variables wrapped up within the scope of the function. This means the global namespace is not polluted with lots of variable names.</p><pre id="01e6f3bf-3e19-4820-8958-784167004ff8" class="code code-wrap"><code>(function(){
+const temp = &#x27;World&#x27;;
+console.log(`Hello ${temp}`);
+})();
+&gt;&gt; &#x27;Hello World&#x27;</code></pre><h1 id="68213d22-6ac2-4a1d-b0ca-49c594cf7d0f" class="">Self-defining functions</h1><p id="0edc4b42-a54f-456e-ae6c-4d5c69825e2c" class="">The dynamic nature of JavaScript means that a function is able to not only call itself, but define itself, and even redefine itself. This is done by assigning an anonymous function to a variable that has <em>the same name as the function</em>.</p><p id="29beafa7-ce19-4198-9777-e82f80495d30" class="">Consider the following:</p><pre id="094c1c49-aac6-4505-8c47-a9437ab736d6" class="code code-wrap"><code>// This logs a message in the console, then redefines itself to log a different message
+// in the console.
+function party(){
+    console.log(&#x27;Wow this is amazing!&#x27;);
+    party = function(){
+        console.log(&#x27;Been there, got the T-Shirt&#x27;);
+    }
+}
+
+/* Every time the function is called after the first time, it will log the message &#x27;Been there, got the T-Shirt&#x27;: */
+party();
+&lt;&lt; &#x27;Wow this is amazing!&#x27;
+party();
+&lt;&lt; &#x27;Been there, got the T-Shirt&#x27;
+party();
+&lt;&lt; &#x27;Been there, got the T-Shirt&#x27;</code></pre><p id="4516ac30-d947-4083-a6d7-d1b9f3abf6b4" class="">If the function is also assigned to another variable, this variable will maintain the original function definition and not be rewritten.</p><pre id="c3cfa63d-d43f-4584-a618-f078302c0f79" class="code code-wrap"><code>function party(){
+    console.log(&#x27;Wow this is amazing!&#x27;);
+    party = function(){
+        console.log(&#x27;Been there, got the T-Shirt&#x27;);
+    }
+}
+const beachParty = party; // note that the party function has not been invoked
+beachParty(); // the party() function has now been redefined, even though it hasn&#x27;t been called explicitly
+&lt;&lt; &#x27;Wow this is amazing!&#x27;
+party();
+&lt;&lt; &#x27;Been there, got the T-Shirt&#x27;
+beachParty(); // but this function hasn&#x27;t been redefined
+&lt;&lt; &#x27;Wow this is amazing!&#x27;
+beachParty(); // no matter how many times this is called it will remain the same
+&lt;&lt; &#x27;Wow this is amazing!&#x27;
+</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e6401ab2-ff5f-42ca-bfb3-637359e4662e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">If any properties have previously been set on the function, these will be lost when the function redefines itself. In the previous example, we can set a <code>music</code> property, and see that it no longer exists after the function has been invoked and redefined:</div></figure><pre id="2f371b29-da2f-4325-b559-ffb87cb10ca5" class="code code-wrap"><code>function party() {
+    console.log(&#x27;Wow this is amazing!&#x27;);
+    party = function(){
+    console.log(&#x27;Been there, got the T-Shirt&#x27;);
+    }
+}
+party.music = &#x27;Classical Jazz&#x27;; // set a property of the function
+party();
+&lt;&lt; &quot;Wow this is amazing!&quot;
+party.music; // function has now been redefined, so the property doesn&#x27;t exist
+&lt;&lt; undefined</code></pre><p id="ee3f89f0-b7cc-42bc-9b58-9a324b8dd03a" class="">This is called the<em> Lazy Definition Pattern </em>and is often used when some initialization code is required the first time it’s invoked. This means the initialization can be done the first time it’s called, then the function can be redefined to what you want it to be for every subsequent invocation.</p><h3 id="7b4ba11a-657c-408e-a11c-9f95ba2c8b3c" class="">Init-Time Branching</h3><p id="b7733dd0-03d4-4ff8-9064-871ccd14ab19" class="">This is a technique that is used to create functions that rewrite themselves if a particular feature is or is not present. This can be used in feature-detection for browsers as it enables functions to work more effectively in the browser, and avoid checking for features every time they’re invoked.</p><p id="f4e6a4ec-052e-47a3-9892-efe32189bb53" class="">An example:</p><pre id="429e9767-df39-4cde-bf25-55d12a76fca4" class="code code-wrap"><code>function ride(){
+    if (window.unicorn) { 
+        ride = function(){
+        // some code that uses the brand new and sparkly unicorn methods
+        return &#x27;Riding on a unicorn is the best!&#x27;;
+        }
+    } else {
+        ride = function(){
+        // some code that uses the older pony methods
+        return &#x27;Riding on a pony is still pretty good&#x27;;
+        }
+    }
+    return ride();
+}</code></pre><p id="1024f8ba-c38c-45c5-9db6-893568189d30" class="">After we’ve checked whether the <code>window.unicorn</code> object exists (by checking to see if it’s truthy), we’ve rewritten the ride() function according to the outcome. Right at the end of the function, we call it again so that the rewritten function is now invoked, and the relevant value returned. One thing to be aware of is that the function is invoked twice the first time, although it becomes more efficient each subsequent time it’s invoked. Let’s take a look at how it works:</p><pre id="fd65463d-67a3-4c0a-9172-28b480944234" class="code code-wrap"><code>ride(); // the function rewrites itself, then calls itself
+&lt;&lt; &#x27;Riding on a pony is still pretty good&#x27;
+
+/* Once the function has been invoked, it’s rewritten based on the browser’s capabilities. We can check this by inspecting the function without invoking it:
+*/
+
+ride
+&lt;&lt; function ride() {
+    return &#x27;Riding on a pony is still pretty good&#x27;;
+   }</code></pre><p id="1c94aaee-5649-4e84-8acf-a4e50e68c267" class="">This can be a useful pattern to initialize functions the first time they’re called, optimizing them for the browser being used.</p><h1 id="aa1aa4c5-f8c4-4e98-b4e2-eca26fac2c13" class="">Recursive functions</h1><p id="e914c9a8-911d-494e-b3b9-408d81dae32d" class="">A recursive function is one that invokes itself until a certain condition is met. It’s a useful tool to use when iterative processes are involved. A common example is a function that calculates the <strong>factorial</strong> of a number:</p><pre id="26a01a67-c935-44de-91e5-2268e8a403a9" class="code code-wrap"><code>function factorial(n) {
+    if (n === 0) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}</code></pre><h1 id="a3eb6606-794e-4f3e-bfe5-366db98bd790" class="">Callbacks</h1><p id="62edb16e-1fbb-4cf2-91cf-a8effd68428c" class="">Callbacks are functions passed to other functions as arguments and then invoked inside the function they are passed to.</p><p id="f0c17a8f-6b27-47eb-97f4-146a06ae930c" class="">Callbacks can be used to facilitate event-driven asynchronous programming. JavaScript is a single-threaded environment, which means only one piece of code will ever be processed at a time. </p><p id="4d3642ed-3440-4df2-8f9d-fa26f8b37437" class="">Non-blocking techniques can be used to ensure that the program continues to run. Instead of waiting for an event to occur, a callback can be created that’s invoked when the event happens. This means that the code is able to run out of order, or <em>asynchronously.</em></p><p id="821ad025-d268-4f83-957e-041413160691" class="">An example:</p><pre id="b2cdd199-7f99-48ed-88dd-1bf959bad116" class="code code-wrap"><code>function wait(message, callback, seconds){
+    setTimeout(callback,seconds * 1000);
+    console.log(message);
+}
+
+// Callback function
+function selfDestruct(){
+    console.log(&#x27;BOOOOM!&#x27;);
+}
+
+wait(&#x27;This tape will self-destruct in five seconds ... &#x27;, selfDestruct, 5);
+console.log(&#x27;Hmmm, should I accept this mission or not ... ?&#x27;); // This prints even though the async function wait hasn&#x27;t finished.
+&lt;&lt; &#x27;This tape will self-destruct in five seconds ... &#x27;
+&lt;&lt; &#x27;Hmmm, should I accept this mission or not ... ? &#x27;
+&lt;&lt; &#x27;BOOOOM!&#x27;
+
+// a callback always has to wait for the current execution stack to complete before it’s invoked.
+
+wait(&#x27;This tape will self-destruct immediately ... &#x27;, selfDestruct, 0); // zero seconds
+console.log(&#x27;Hmmm, should I accept this mission or not ... ?&#x27;);
+&lt;&lt; &#x27;This tape will self-destruct immediately ... &#x27;
+&lt;&lt; &#x27;Hmmm, should I accept this mission or not ... ?&#x27;
+&lt;&lt; &#x27;BOOOOM!&#x27;</code></pre><h3 id="ff80437c-0b02-4ebf-9981-92b295260054" class="">Callback Hell</h3><p id="c950020c-5497-4e27-87f8-fd756c7dbb0d" class="">Asynchronous JavaScript, or JavaScript that uses callbacks, is hard to get right intuitively. A lot of code ends up looking like this:</p><pre id="a95de89d-87fd-4f0e-b521-0511d0419e73" class="code code-wrap"><code>fs.readdir(source, function (err, files) {
+  if (err) {
+    console.log(&#x27;Error finding files: &#x27; + err)
+  } else {
+    files.forEach(function (filename, fileIndex) {
+      console.log(filename)
+      gm(source + filename).size(function (err, values) {
+        if (err) {
+          console.log(&#x27;Error identifying file size: &#x27; + err)
+        } else {
+          console.log(filename + &#x27; : &#x27; + values)
+          aspect = (values.width / values.height)
+          widths.forEach(function (width, widthIndex) {
+            height = Math.round(width / aspect)
+            console.log(&#x27;resizing &#x27; + filename + &#x27;to &#x27; + height + &#x27;x&#x27; + height)
+            this.resize(width, height).write(dest + &#x27;w&#x27; + width + &#x27;_&#x27; + filename, function(err) {
+              if (err) console.log(&#x27;Error writing file: &#x27; + err)
+            })
+          }.bind(this))
+        }
+      })
+    })
+  }
+}) // Ewww! 🤮</code></pre><p id="157fd4a8-7e99-4770-9a4d-134ddc1a7374" class="">Callback hell can make code very difficult to read or understand.</p><h1 id="b17ffbdd-2937-4c2e-8461-7c83f1a9bc01" class="">Promises</h1><p id="81982682-bfca-4e31-9c5c-ea5839d59d39" class="">When a promise is created, it calls an asynchronous operation and is then said to be <em>pending</em>. It remains in this state while the operation is taking place. At this stage, the promise is said to be <em>unsettled</em>. Once the operation has completed, the promise is said to have been <em>settled</em>. A settled promise can result in two different outcomes:</p><ul id="45a4d87f-ba27-4a8c-b49f-a20ddb14045c" class="bulleted-list"><li>Resolved ― the asynchronous operation was completed successfully.</li></ul><ul id="05c9b8cd-a28c-4fc3-806e-70907bf3bf67" class="bulleted-list"><li>Rejected ― the asynchronous operation didn’t work as expected, wasn&#x27;t successfully completed or resulted in an error.</li></ul><p id="2d88a2af-8fa1-497a-81c0-8244b012e1d2" class="">Both these outcomes will return any relevant data, and you can take the appropriate action based on the outcome of the promise.</p><p id="ad08acd1-5bb4-4662-a3e1-b5c4fc727f42" class="">
+</p><h3 id="8369f36d-db79-4df0-adeb-800a55c35a6c" class="">Creating a Promise</h3><p id="e07cef81-4842-46db-b660-63a45d50e1e7" class="">A promise is created using a constructor function. This takes a function called an <strong>executor</strong> as an argument. The executor initializes the promise and starts the asynchronous operation. It also accepts two functions as arguments: the resolve() function is called if the operation is successful, and the reject() function is called if the operation fails:</p><pre id="15ce4646-7798-431e-87a0-cd60e2695b9a" class="code"><code>// General layout of a promise
+const promise = new Promise( (resolve, reject) =&gt; {
+    // initialization code goes here
+    if (success) {
+        resolve(value);
+    } else {
+        reject(error);
+    }
+});
+
+// An example
+const dice = {
+	sides: 6,
+	roll() {
+		return Math.floor(this.sides * Math.random()) + 1;
+	}
+}
+
+const dicePromise = new Promise((resolve, reject) =&gt; {
+	const n = dice.roll();
+	setTimeout(() =&gt; {
+		(n &gt; 1) ? resolve(n) : reject(n);
+	}, n * 1000);
+});
+
+dicePromise
+	.then(result =&gt; console.log(`Yes! I rolled a ${result}`)) // Passes
+	.catch( result =&gt; console.log(`Drat! ... I rolled a ${result}`)); // Fails</code></pre><h3 id="01f8fc7f-15cb-418f-9dcc-3c1cf85a5304" class="">Chaining Multiple Promises</h3><p id="5169d3af-6256-4693-8886-0141e0fcc78a" class="">Promises can be chained by returning a value in a then() method.</p><pre id="fbe56c1d-10ce-4e0f-89b0-ed2690ed9ce1" class="code"><code>login(userName)
+.then(user =&gt; getPlayerInfo(user.id))
+.then(info =&gt; loadGame(info))
+.catch( throw error)</code></pre><h1 id="d2fc33f9-3de6-4d77-9969-0d6fa5ac62b4" class="">Async functions</h1><p id="b2522d83-f047-44bd-acaf-9ded34e98ab8" class="">Async functions were added to the ES2017 specification. These functions are preceded by the <code>async</code> keyword and allow you to write asynchronous code as if it was synchronous. This is achieved by using the <code>await</code> operator before an asynchronous function. This will wrap the return value of the function in a promise that can then be assigned to a variable. The next line of code is not executed until the promise is resolved.</p><p id="f9e39f6e-6391-438c-b3e8-7b7887112f55" class="">The example below shows how the <code>loadGame()</code> function can be written an <code>async</code> function:</p><pre id="a8d6248f-94ab-4225-bb93-edcd2ba5e8f5" class="code code-wrap"><code>async function loadGame(userName) {
+    try {
+        const user = await login(userName);
+        const info = await getPlayerInfo (user.id);
+        // load the game using the returned info
+    }
+    catch (error){
+        throw error;
+    }
+}</code></pre><h1 id="66b92b29-15be-4239-9997-035da37ed8ad" class="">Functions that return functions</h1><pre id="29f9f95c-4004-45a6-8f14-96e9378a8cfb" class="code"><code>// Functions can return functions
+function greeter(greeting = &#x27;Hello&#x27;) {
+    return function() {
+        console.log(greeting);
+    }
+}
+const englishGreeter = greeter();
+englishGreeter();
+&lt;&lt; Hello
+const frenchGreeter = greeter(&#x27;Bonjour&#x27;);
+frenchGreeter();
+&lt;&lt; Bonjour
+const germanGreeter = greeter(&#x27;Guten Tag&#x27;);
+germanGreeter();
+&lt;&lt; Guten Tag</code></pre><h1 id="2efb2d9d-48e0-4298-9b5d-d6c647aed17d" class="">Closures</h1><p id="a83ab7a0-8dbe-43a1-855a-6b6017213fed" class="">A closure is a reference to a variable that was created inside the scope of another function, but is then kept alive and used in another part of the program.</p><p id="e900866d-4601-49af-8062-60d71ab37894" class="">One of the key principles in creating closures is that an &#x27;inner&#x27; function, which is declared inside another function, has full access to all of the variables declared inside the scope of the function in which it’s declared (the &#x27;outer&#x27; function). This can be seen in the example below:</p><pre id="f91af603-bf80-4772-b981-923c29509f3c" class="code code-wrap"><code>function outer() {
+    const outside = &#x27;Outside!&#x27;;
+    function inner() {
+        const inside = &#x27;Inside!&#x27;;
+        console.log(inside);
+    }
+    console.log(outside);
+    inner();
+}
+
+outer()
+&lt;&lt; Outside!
+Inside!
+Outside!</code></pre><h3 id="6aa6900d-3da6-4d76-bab7-30b744dae64b" class="">Returning Functions</h3><p id="1caf51dc-4507-44e7-990d-358dba5790f5" class="">A <code>closure</code> is formed when the inner function is returned by the outer function, maintaining access to any variables declared inside the enclosing function.</p><pre id="5e2c52b5-c9b5-458e-8b9f-be17e50137c1" class="code"><code>function outer() {
+    const outside = &#x27;Outside!&#x27;;
+    function inner() {
+        const inside = &#x27;Inside!&#x27;;
+        console.log(outside);
+        console.log(inside);
+    }
+    return inner;
+}
+
+// We can now assign a variable to the return value of the outer() function
+const closure = outer();
+closure();
+&lt;&lt; Outside!
+Inside!</code></pre><p id="0fc89362-2c7a-4c82-ab9f-4a7423d1ff40" class="">Another example:</p><pre id="73dc3f9e-7a81-4206-9536-1e5967112718" class="code code-wrap"><code>function closure() {
+    const a = 1.8;
+    const b = 32;
+    return c =&gt; c * a + b;
+}
+
+const toFahrenheit = closure();
+toFahrenheit(30);
+&lt;&lt; 86</code></pre><p id="e7a8e5f2-795e-4d38-b928-e4d6d7de0e0e" class="">A closure doesn&#x27;t just have access to the value of a variable, it can also change the value of the variable long after the function in which it was originally declared has been invoked.</p><pre id="6d601517-be3f-4ee3-8c44-2cac235c4a98" class="code code-wrap"><code>function counter(start){
+    let i = start;
+    return function() {
+        return i++;
+    }
+}
+
+const count = counter(1);
+count();
+&lt;&lt; 1
+count();
+&lt;&lt; 2</code></pre><h3 id="ab1e4126-18c8-4fd1-9fff-9bcb71e0de0f" class="">Generators</h3><p id="b195c16f-9cfc-4ace-b644-de9d6a5a94b6" class="">ES6 introduced support for generators. These are special functions used to produce iterators that maintain the state of a value.</p><p id="2a07f1b3-84f5-40e6-b981-cda309229cfb" class="">To define a generator function, an asterisk symbol ( <code>*</code> ) is placed after the function declaration, like so:</p><pre id="a8672283-abd4-40c1-8cef-4362c146b90f" class="code code-wrap"><code>function* exampleGenerator() {
+// code for the generator goes here
+}</code></pre><p id="1fecb555-bfb9-490a-b86f-540b8dd113ec" class="">
+</p><p id="27e99680-bdd7-4d47-909e-e5160fa6abf4" class="">Calling a generator function doesn’t actually run any of the code in the function; it returns a <strong>Generator </strong>object that can be used to create an iterator that implements a <code>next()</code> method that returns a value every time the <code>next()</code> method is called. The <code>yield</code> keyword is used to return a value. The difference between the <code>yield</code> and the <code>return</code> keywords is that by using <code>yield</code> , the state of the value returned is remembered the next time <code>yield</code> is called. The execution of the loop is paused after every <code>yield</code> statement, until the <code>next()</code> method is called again.</p><p id="1451ef59-ec9b-4cb8-8e91-674520e7ea60" class="">For example, we can create a generator to produce a Fibonacci-style number series (a sequence that starts with two numbers and the next number is obtained by adding the two previous numbers together), using the following code:</p><pre id="ce30e729-a2aa-482d-8be0-d7ae59c8ab16" class="code"><code>function* fibonacci(a,b) {
+    let [ prev,current ] = [ a,b ];
+    while(true) {
+        [prev, current] = [current, prev + current];
+        yield current;
+    }
+}
+
+// Create a generator object
+const sequence = fibonacci(1,1);
+
+sequence.next();
+&lt;&lt; 2
+sequence.next();
+&lt;&lt; 3
+sequence.next();
+&lt;&lt; 5
+
+// It’s also possible to iterate over the generator to invoke it multiple times:
+for (n of sequence) {
+    // stop the sequence after it reaches 100
+    if (n &gt; 10) break;
+    console.log(n);
+}
+&lt;&lt; 8
+&lt;&lt; 13
+&lt;&lt; 21
+&lt;&lt; 34
+&lt;&lt; 55
+&lt;&lt; 89</code></pre><p id="419a2908-222e-47b4-ac3e-df999d3dc913" class="">
+</p><h1 id="da7d7b42-1561-40d9-815a-6f4b91ccc6fc" class="">Introduction to functional programming</h1><h3 id="92f30096-4aa1-4eca-9112-0be278ab0a35" class="">Pure Functions</h3><p id="407640c8-9a36-4f42-8c58-b62497983711" class="">A key aspect of functional programming is its use of pure functions. A pure function is a function that adheres to the following rules:</p><p id="4e381959-be27-4a15-b610-d4a4c5da967a" class="">1) The return value of a pure function should only depend on the values provided as arguments. It doesn&#x27;t rely on values from somewhere else in the program.</p><p id="83f7d95d-b324-45a2-b6a7-4f9968fd21a0" class="">2) There are no side-effects. A pure function doesn&#x27;t change any values or data elsewhere in the program. It only makes non-destructive data transformations and returns new values, rather than altering any of the underlying data.</p><p id="de1589c6-21a1-4351-9cd3-6cdff58b5dbb" class="">3) Referential transparency. Given the same arguments, a pure function will always return the same result.</p><p id="1f6e03eb-a6f1-41c8-8a41-6e247c708504" class="">The following example shows a pure function that writes the string provided as an argument backwards:</p><pre id="859a3e0a-8112-4eb8-882c-65e76c6d33bb" class="code code-wrap"><code>function reverse(string) {
+    return string.split(&#x27;&#x27;).reverse().join(&#x27;&#x27;);
+}
+
+/* The function does not change the actual value of the argument, it just returns another string that happens to be the argument written backwards: */
+const message = &#x27;Hello JavaScript&#x27;;
+reverse(message);
+&lt;&lt; &#x27;tpircSavaJ olleH&#x27;
+message // hasn&#x27;t changed
+&lt;&lt; &#x27;Hello JavaScript&#x27;</code></pre><p id="8059a620-8dc8-4488-892b-f7a06ec23f3f" class="">By only performing a single task, pure functions are more flexible, as they can be used as the building blocks for many different situations, rather than be tightly coupled with one particular operation. They also help to make your code more modular, as each function can be improved upon or replaced without interfering with any of the other functions. This makes it easy to replace one function with another to either improve the behavior, modify it slightly, or even change it completely.</p><pre id="d7228278-e846-452d-b8b7-554db77f5501" class="code"><code>function square(x){
+    return x*x;
+}
+
+function hypotenuse(a,b) {
+    return Math.sqrt(square(a) + square(b));
+}
+hypotenuse(3,4);
+&lt;&lt; 5</code></pre><h3 id="ceb4d310-733e-4994-adc1-5528d597c121" class="">Higher Order Functions</h3><p id="5bfca36a-3610-4bd6-a7ec-724c21f447dc" class="">Higher-order functions are functions that accept another function as an argument, or return another function as a result, or both.</p><p id="db10332e-6088-43e4-8eaf-be0297c42edc" class="">Closures are used extensively in higher-order functions as they allow us to create a generic function that can be used to then return more specific functions based on its arguments. This is done by creating a closure around a function&#x27;s arguments that keeps them &#x27;alive&#x27; in a return function. For example, consider the following <code>multiplier()</code> function:</p><pre id="6ccd3793-5469-4a07-bd48-103378dddaee" class="code code-wrap"><code>/* This function returns another function that traps the argument x in a closure. This is then available to be used by the returned function. */
+function multiplier(x){
+    return function(y){
+        return x*y;
+    }
+}
+// multiplier() can now be used to create more specific functions
+doubler = multiplier(2)
+doubler(10)
+&gt;&gt; 20</code></pre><p id="599989bd-98f7-4eec-a013-d8e54426ccf4" class="">The multiplier() function is an example of a higher-order function. This means we can use it to build other, more specific functions by using different arguments. For example, an argument of 3 can be used to create a <code>tripler()</code> function that multiplies its arguments by 3:</p><pre id="f467cc88-8d3c-4dda-aa50-ed285ef52d62" class="code"><code>tripler = multiplier(3);
+tripler(10);
+&lt;&lt; 30</code></pre><h1 id="001b85a7-984b-4b62-8888-661c660384e8" class="">Currying</h1><p id="2fd6d931-30c6-4a44-b398-dadc609cde76" class=""><strong>Currying </strong>is a process that involves the partial application of functions. It’s named after the logician <strong>Haskell Curry</strong>— not the spicy food — just like the programming language Haskell is. His work on a paper by Moses Schönfinkel lead to the development of this programming technique.</p><p id="9ae82d92-128a-4a5f-877a-612815ad1361" class="">A function is said to be curried when not all arguments have been supplied to the function, so it returns another function that retains the arguments already provided, and expects the remaining arguments that were omitted when the original function was called. A final result is only returned once all the expected arguments have eventually been provided.</p><p id="9297482d-0419-47b2-aa6e-d2751c11d2cc" class="">Currying relies on higher-order functions that are able to return partially applied functions. All curried functions are higher-order functions because they return a function, but not all higher-order functions are curried.</p><p id="8694dbdc-9c9b-4e25-a23a-99de621fa91d" class="">Currying allows you to turn a single function into a series of functions instead. This is useful if you find that you’re frequently calling a function with the same argument. For example, the following <code>multiplier()</code> function is a generic function that returns the product of two numbers that are provided as arguments:</p><pre id="80f9808f-de56-4d8e-9c24-71d8b8eff972" class="code code-wrap"><code>function multiplier(x,y) {
+    return x * y;
+}
+
+// basic use
+const tax = multiplier(0.22,400);
+&lt;&lt; 88
+
+/* Let&#x27;s make the multiplier function more useful by adding some code at the start that allows it to be curried so it returns another function if only one argument is provided:*/
+function multiplier(x,y) {
+    if (y === undefined) {
+        return function(z) {
+	        return x * z;
+        }
+    } else {
+        return x * y;
+    }
+}
+
+/* Now, if you found yourself frequently calculating the tax using the same rate of 22%, you could create a new curried function by providing just 0.22 as an argument: */
+calcTax = multiplier(0.22);
+&lt;&lt; function (z){
+    return x * z;
+}
+
+/* This new function can then be used to calculate the tax, without requiring 0.22 as an argument:*/
+calcTax(400);
+&lt;&lt; 88</code></pre><h3 id="dd788a78-fcd2-4d3b-84ad-c8b3d53506ae" class="">A General Curry Function</h3><p id="4607882d-a14f-429f-9d4f-09065b5a6179" class="">In the last example, we hard-coded the multiplier() function so it could be curried. It’s possible to use a curry() function to take any function and allow it to be partially applied. The curry function is the following:</p><pre id="c697d994-d2b5-4c26-a04f-98c3fcaa039c" class="code code-wrap"><code>function curry(func,...oldArgs) {
+    return function(...newArgs) {
+        const allArgs = [...oldArgs,...newArgs];
+        return func(...allArgs);
+    }
+}</code></pre><p id="8eee0975-4790-48de-9553-2cc61f026f39" class="">An example:</p><pre id="e8a08bdf-19ea-45a1-800e-d29156e443e1" class="code code-wrap"><code>const divider = (x,y) =&gt; x/y;
+divider(10, 5);
+&lt;&lt; 2
+
+/* We can now use our curry() function to create a more specific function that finds the reciprocal */
+const reciprocal = curry(divider, 1);
+reciprocal(2);
+&lt;&lt; 0.5</code></pre><h2 id="9da94dc9-19f1-45bc-a3fd-101707190254" class="">Questions</h2><ol id="223d5cc2-22e1-4c20-91f4-5d0854899be8" class="numbered-list" start="1"><li>What other functional programming concept exist?</li></ol><ol id="714a0b0f-6b17-46eb-a521-ce48b7c2fe5a" class="numbered-list" start="2"><li>What are some practical use cases that these functional programming concepts can be applied to?</li></ol></div></article></body></html>

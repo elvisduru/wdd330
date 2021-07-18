@@ -1,0 +1,43 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form,
+#posts {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  padding: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+input[type="submit"] {
+  background-color: #0078c8;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.3rem;
+  cursor: pointer;
+}
+
+textarea {
+  height: 100px;
+}
+
+.hidden {
+  display: none;
+}
+
+#errors {
+  color: #db131a;
+}

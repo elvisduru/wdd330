@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./week11.css">
+  <title>Week 11 Team Activity</title>
+</head>
+
+<body>
+  <div id="errors" class="errors hidden"></div>
+  <h1>Earth Online</h1>
+  <form id="login">
+    <label>
+      Username:
+      <input type="text" id="username">
+    </label>
+    <label>
+      Password:
+      <input type="password" id="password">
+    </label>
+    <input id="submitBtn" type="submit" value="Login">
+  </form>
+  <ul id="posts"></ul>
+  <form class="hidden" id="postForm">
+    <h2>Add a new post</h2>
+    <label>
+      Post Title:
+      <input type="text" id="title">
+    </label>
+    <label>
+      Post Content:
+      <textarea id="content"></textarea>
+    </label>
+    <input id="postSubmitBtn" type="submit" value="Add Post">
+  </form>
+  <script src="./week11.js" type="module"></script>
+</body>
+
+</html>

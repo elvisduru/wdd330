@@ -1,0 +1,704 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Ajax</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6d9d6b72-254f-45cf-bf72-a64cba20b68e" class="page sans"><header><h1 class="page-title">Ajax</h1></header><div class="page-body"><p id="cf2e8759-cff8-4ce2-b482-8d518444f2d4" class="">Ajax is a technique that allows web pages to communicate asynchronously with a server, and it dynamically updates web pages without reloading. This enables data to be sent and received in the background, as well as portions of a page to be updated in response to user events, while the rest of the program continues to run.</p><h2 id="32f62b0f-c8cc-4e42-9a44-ad8141c7dfe2" class="">A brief history of Ajax</h2><p id="7d530a1e-265d-4256-90e7-df32b43d014a" class="">When the World Wide Web started, web pages contained static content. Any changes to the content on the page required a full page reload</p><p id="9dca627c-2e5c-434f-88ba-fd35f031af2c" class="">In 1999, Microsoft implemented the XMLHTTP ActiveX control in Internet Explorer 5, developed initially for the Outlook web client, and allowed data to be sent asynchronously in the background using JavaScript. Other browsers implemented this technique, although it remained a relatively unknown feature, and was rarely used.</p><p id="aecb5214-0c2c-41fb-ae68-d87ea3d5b682" class="">Asynchronous loading techniques started to be noticed when Google launched Gmail and Google Maps in 2004 and 2005 respectively. These web applications used asynchronous loading techniques to enhance the user experience by changing the parts of the page without a full refresh. This gave them a much snappier and responsive quality that felt more like a desktop application.</p><p id="dc8ec060-2a41-4771-b118-68394dc92ea8" class="">The term &#x27;Ajax&#x27; was coined by Jesse James Garrett in 2005 in the article <a href="https://web.archive.org/web/20080702075113/http://www.adaptivepath.com/ideas/essays/archives/000385.php">“Ajax: A New Approach to Web Applications, ”</a> where he referred to techniques being used by Google in its recent web applications. Ajax was a neat acronym that referred to the different parts of the process being used: Asynchronous JavaScript and XML:</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="45fd1c33-cbea-4d73-b02f-0a14e988f7dc"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Asynchronous</strong>
+When a request for data is sent, the program doesn’t have to stop and wait for the response. It can carry on running, waiting for an event to fire when a response is received. By using callbacks to manage this, programs are able to run in an efficient way, avoiding lag as data is transferred back and forth.
+
+<strong>JavaScript</strong>
+JavaScript was always considered a &#x27;front-end&#x27; language, not used to communicate with the server. Ajax enabled JavaScript to send requests and receive responses from a server, allowing content to be updated in real time.
+
+<strong>XML</strong>
+When the term Ajax was originally coined, XML documents were often used to return data. Many different types of data can be sent, but by far the most commonly used in Ajax nowadays is JSON, which is more lightweight and easier to parse than XML. (Although it has never really taken off, the term Ajax is sometimes used to describe the technique.)JSON also has the advantage of being natively supported in JavaScript, so you can deal with JavaScript objects rather than having to parse XML files using DOM methods.</div></figure><h2 id="bef72bce-41c6-4bf7-a077-39cd656aed71" class="">Communicating with the server using the Fetch API</h2><p id="0b153908-1e10-4d79-bb70-d1f5bd58f2dd" class="">The Fetch API provides a global <code>fetch()</code> method that only has one mandatory argument, which is the URL of the resource you wish to fetch. A very basic example would look something like the following piece of code:</p><pre id="91b3b216-8503-4721-9f69-3918eb8bbace" class="code code-wrap"><code>fetch(&#x27;https://example.com/data&#x27;)
+.then( // code that handles the response )
+.catch( // code that runs if the server returns an error )</code></pre><h3 id="3e1b9b6f-c055-4824-9408-6aa59dbc5800" class="">Response Interface</h3><p id="00c337cb-8a18-460a-8f99-06bbbec2846f" class="">The Fetch API introduced the Response interface that deals with the object that’s returned when the promise is fulfilled.</p><pre id="1760191e-b8c5-44f6-aeee-92268fe9aa58" class="code code-wrap"><code>const url = &#x27;https:example.com/data&#x27;;
+fetch(url)
+.then((response) =&gt; { // response object
+    if(response.ok) {
+        return response;
+    }
+    throw Error(response.statusText);
+})
+.then( response =&gt; // do something with response )
+.catch( error =&gt; console.log(&#x27;There was an error!&#x27;) )</code></pre><p id="1c8d9408-db18-4184-9f04-5f2a8d80ca58" class="">Some other properties of the Response object are:</p><ul id="a8f597bb-76e8-4cfb-8431-f65ce6206dc9" class="bulleted-list"><li><code>headers</code> – A Headers object (see later section) containing any headers associated with the response</li></ul><ul id="83beac32-25eb-4e52-81be-e051d789400d" class="bulleted-list"><li><code>url</code> – A string containing the URL of response</li></ul><ul id="7a350841-44ab-4aaf-a799-326873dfddb9" class="bulleted-list"><li><code>redirected</code> – A boolean value that specifies if the response is the result of a redirect</li></ul><ul id="a318fea7-d09f-45d3-98cd-012f7f0c3942" class="bulleted-list"><li><code>type</code> – A string value of &#x27;basic&#x27;, &#x27;cors&#x27;, &#x27;error&#x27; or &#x27;opaque&#x27;. A value of &#x27;basic&#x27; is used for a response from the same domain. A value of &#x27;cors&#x27; means the data was received from a valid cross-origin request from a different domain. A value of &#x27;opaque&#x27; is used for a response received from &#x27;no-cors&#x27; request from another domain, which means access to the data will be severely restricted. A value of &#x27;error&#x27; is used when a network error occurs.</li></ul><p id="f47fff11-9622-4a05-9397-05c29ebbe27e" class="">The response object also contains a number of methods that return promises that can then be chained together.</p><h3 id="3a5a0497-a245-4409-a3aa-3c09aeacc786" class="">Redirects</h3><p id="a790ee4d-4561-4032-8e16-4a6379dab9c4" class="">The <code>redirect()</code> method can be used to redirect to another URL. It creates a new promise that resolves to the response from the redirected URL.</p><pre id="2284482a-3af9-4dd7-a42c-5f0a375333ee" class="code code-wrap"><code>fetch(url)
+.then( response =&gt; response.redirect(newURL)); // redirects to another URL
+.then( // do something else )
+.catch( error =&gt; console.log(&#x27;There was an error: &#x27;, error))</code></pre><p id="3ecafc2f-2dca-4c9a-9e30-a40cc256fde4" class="">At the present time, there is experimental support for the redirect() method in most browsers.</p><h3 id="ee56c1bd-979b-4e96-9c61-0292060d8a76" class="">Text Responses</h3><p id="d46c3270-38bb-4974-b6b0-aff07ec2a301" class="">The <code>text()</code> method takes a stream of text from the response, reads it to completion and then returns a promise that resolves to a USVSting object that can be treated as a string in JavaScript.</p><pre id="dcb0c7c1-83ae-4c97-b5c8-c1c744f73489" class="code code-wrap"><code>fetch(url)
+.then( response =&gt; response.text() ); // transforms the text stream into a JavaScript string
+.then( text =&gt; console.log(text) )
+.catch( error =&gt; console.log(&#x27;There was an error: &#x27;, error))</code></pre><h3 id="980fc64a-5f69-4053-8729-a0ba5c5747ec" class="">File Responses</h3><p id="563531d6-eb27-442a-8d40-226d2107ac17" class="">The <code>blob()</code> method is used to read a file of raw data, such as an image or a spreadsheet. Once it has read the whole file, it returns a promise that resolves with a blob object.</p><pre id="3f3db730-e1c1-4ea6-be0c-9de31cc5907f" class="code code-wrap"><code>fetch(url)
+.then( response =&gt; response.blob() ); // transforms the data into a blob object
+.then( blob =&gt; console.log(blob.type) )
+.catch( error =&gt; console.log(&#x27;There was an error: &#x27;, error))</code></pre><h3 id="b552f34c-3148-45b1-8991-425380e0d4f5" class="">JSON Responses</h3><p id="a2f13baf-d78d-4c32-bc8e-3a085a76a523" class="">JSON is probably the most common format for AJAX responses. The <code>json()</code> method is used to deal with these by transforming a stream of JSON data into a promise that resolves to a JavaScript object.</p><pre id="48916713-5b67-49c2-b221-8f4141c8aebe" class="code code-wrap"><code>fetch(url)
+.then( response =&gt; response.json() ); // transforms the JSON data into a JavaScript object
+.then( data =&gt; console.log(Object.entries(data)) )
+.catch( error =&gt; console.log(&#x27;There was an error: &#x27;, error))</code></pre><h3 id="6bc2b094-f8b2-49dd-ae56-ef54adaad45c" class="">Creating Response Objects</h3><p id="416c3db5-7982-49d6-b24b-d7f5477d605f" class="">Although most of the time you will be dealing with a response object that is returned from a request you make, you can also create your own response objects using a constructor function:</p><pre id="af8c2a01-3a8f-450c-b958-7794ac825e6c" class="code code-wrap"><code>const response = new Response( &#x27;Hello!&#x27;, {
+    ok: true,
+    status: 200,
+    statusText: &#x27;OK&#x27;,
+    type: &#x27;cors&#x27;,
+    url: &#x27;/api&#x27;
+});</code></pre><p id="2c4694ab-a1a8-460a-ba20-030d60d0b34f" class="">The first argument is the data that is to be returned (for example a text stream, file or JSON data). The second argument is an object that can be used to provide values for any of the properties listed above.</p><p id="58ea500c-1573-42f3-86bb-a0523d6fa47f" class="">These can be useful to use if you are creating an API that needs to send a response, or if you need to send a dummy response for testing purposes.</p><h3 id="f713d253-1d4f-4dfb-89a6-20961d93871c" class="">Request Interface</h3><p id="7d0b06bb-e5a8-41d1-8b0f-88cf1c52003b" class="">Request objects are created using the <code>Request()</code> constructor, and include the following properties:</p><ul id="a9e37329-9e91-4cfd-92d0-bfe1cadaa070" class="bulleted-list"><li><code>url</code> – The URL of the requested resource (the only property that is required).</li></ul><ul id="642a3ee7-7c58-4a81-baf8-95a3b8c249a1" class="bulleted-list"><li><code>method</code> – a string that specifies which HTTP method should be used for the request. By default, this is &#x27;GET&#x27;.</li></ul><ul id="dcde5d9b-2226-4be7-ae41-ec36ce1f46d4" class="bulleted-list"><li><code>headers</code> – This is a <code>Headers</code> object (see later section) that provides details of the request&#x27;s headers.</li></ul><ul id="55a827f9-814a-4c14-8931-a1350ecdab4a" class="bulleted-list"><li><code>mode</code> – Allows you to specify if CORS is used or not. CORS is enabled by default.</li></ul><ul id="d47d579e-5e1e-4cc4-9f44-149b84ee8826" class="bulleted-list"><li><code>cache</code> – Allows you to specify how the request will use the browser&#x27;s cache. For example, you can force it to request a resource and update the cache with the result, or you can force it to only look in the cache for the resource.</li></ul><ul id="b0aa089d-a706-45fd-a7e7-7354b27a730b" class="bulleted-list"><li><code>credentials</code> – Lets you specify if cookies should be allowed with the request.</li></ul><ul id="4875c69d-173c-4862-95e9-3f70c32d8fa3" class="bulleted-list"><li><code>redirect</code> – Specifies what to do if the response returns a redirect. There’s a choice of three values: &#x27;follow&#x27; (the redirect is followed), &#x27;error&#x27; (an error is thrown) or &#x27;manual&#x27; (the user has to click on a link to follow the redirect).</li></ul><h3 id="2990a06f-8821-40fa-b82c-1b74923f8bbf" class="">Hypertext Transfer Protocol</h3><p id="7c445ea5-9a63-4458-992b-44b73ae01ed5" class="">The Web is built upon the Hypertext Transfer Protocol, or HTTP. When a client (usually a browser) makes a request to a server, it contains information about which HTTP verb to use. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP verbs, also known as HTTP methods</a> are the what HTTP uses to tell the server what type of request is being made, which then determines the server will deal with the request.</p><p id="5d1da6a6-fdc6-46be-a15f-d5c26b389a84" class="">The five most commonly used verbs when dealing with resources on the web are:</p><ul id="005ae9be-51ed-4956-af44-9c3c43628a48" class="bulleted-list"><li>GET requests to retrieve resources</li></ul><ul id="a9d61cff-d8b5-4dea-ba61-22dc16277e94" class="bulleted-list"><li>POST requests, usually used to create a resource but can actually perform any task</li></ul><ul id="369f3d64-2de2-466d-8993-33e13389196c" class="bulleted-list"><li>PUT requests to <em>upsert</em>, which means insert a resource or update it entirely</li></ul><ul id="736af932-5fa9-4f3d-9a2a-8db8dae20877" class="bulleted-list"><li>PATCH requests to make partial updates to a resource</li></ul><ul id="0dc123a7-f49b-4a53-a876-94c58f79880d" class="bulleted-list"><li>DELETE requests to delete a resources.</li></ul><p id="416ce141-97a6-439d-90b0-655817db82d9" class="">By default, a link in a web page will make a GET request. Forms are also submitted using a GET request by default, but they will often use a POST request.</p><p id="dd3d9ae8-fff3-4fb2-a830-13b5be02124c" class="">A constructor function is used to create a new Request object. An example is shown below:</p><pre id="0ee03b0a-a988-48a7-a7ad-6f139835533c" class="code code-wrap"><code>const request = new Request(&#x27;https://example.com/data&#x27;, {
+    method: &#x27;GET&#x27;,
+    mode: &#x27;cors&#x27;,
+    redirect: &#x27;follow&#x27;,
+    cache: &#x27;no-cache&#x27;
+});</code></pre><p id="82ec623f-d30a-4e6c-9937-f1df11a5d951" class="">The <code>url</code> property is the first argument, and is required. The second argument is an object made up of any of the other properties listed above.</p><p id="9851e47a-2d8b-4f16-a2a8-446a4cd2d576" class="">Once the Request object is assigned to a variable, it can then be used as the parameter of the <code>fetch()</code> method:</p><pre id="5a24af86-2225-43d1-a7c0-24a39a79331e" class="code code-wrap"><code>fetch(request)
+.then( // do something with the response )
+.catch( // handle any errors)</code></pre><p id="c8b34337-463d-428f-b41f-62f9f4d68a7a" class="">Alternatively, you can enter the URL and object directly as arguments of the <code>fetch()</code> method, without having to create a Request object:</p><pre id="4ad4b1e7-1cd9-486f-ad03-1abc3f823b9e" class="code code-wrap"><code>fetch(&#x27;https://example.com/data&#x27;, {
+    method: &#x27;GET&#x27;,
+    mode: &#x27;cors&#x27;,
+    redirect: &#x27;follow&#x27;,
+    cache: &#x27;no-cache&#x27;
+})
+.then( // do something with the response )
+.catch( // handle any errors)</code></pre><h3 id="33d58188-05e5-4c81-91e5-5fa8ffb15deb" class="">Headers Interface</h3><p id="f3e9661e-09a4-4017-883f-549d0d01eb06" class="">HTTP <strong>headers </strong>are used to pass on any additional information about a request or response.</p><p id="5201d0d3-c5bb-4d8e-bc40-afe2d0adb201" class="">Typical information contained in headers includes the file-type of the resource, cookie information, authentication information and when the resource was last modified.</p><p id="ac048903-9b65-430d-8494-fa127f15e7d2" class="">The Fetch API introduced a <code>Headers</code> interface, which can be used to create a Headers object, which can then be added as a property of Request and Response objects.</p><p id="5b3eea90-e192-482c-bb15-4d2558eab798" class="">A new Headers instance is created using a constructor function, as seen in the example below:</p><pre id="ff2d96d6-fe8e-47fa-92b9-78d8ab379f7d" class="code code-wrap"><code>const headers = new Headers();</code></pre><p id="2fd7141a-fd62-4546-9226-94b318681fc1" class="">The constructor function can be provided with an optional argument containing any initial header values:</p><pre id="01422ad6-328c-4438-976c-f68f9d056926" class="code code-wrap"><code>const headers = new Headers({ &#x27;Content-Type&#x27;: &#x27;text/plain&#x27;, &#x27;Accept-Charset&#x27; : &#x27;utf-8&#x27;, &#x27;Accept-Encoding&#x27;:&#x27;gzip,deflate&#x27; })</code></pre><p id="64378518-a573-4f0b-a46a-5f7fb40fd8e9" class="">A <code>Headers</code> object includes the following properties and methods that can be used to access information about the headers, as well as edit the header information.</p><p id="30cb542e-299d-4084-b144-c79ab2eb52fd" class=""><code>has()</code> – Can be used to check if the headers object contains the header provided as an argument.</p><pre id="ebb45a92-eeb2-4464-9a2d-a10f74b7d567" class="code code-wrap"><code>headers.has(&#x27;Content-Type&#x27;);
+&lt;&lt; true</code></pre><p id="cc36c11c-ebfe-49fa-9020-49863fec648e" class=""><code>get()</code> - Returns the value of the header provided as an argument</p><pre id="bbea24ba-4b45-4b5a-ad26-94aaa28270ad" class="code code-wrap"><code>headers.get(&#x27;Content-Type&#x27;);
+&lt;&lt; &#x27;text/plain&#x27;</code></pre><p id="9adf221a-f40b-4151-8ec0-17e4736bc10a" class=""><code>set()</code> – Can be used to set a value of an already existing header, or create a new header with the value provided as an argument if it does not already exist.</p><pre id="89315ed1-38b6-4256-916e-c2e4e9cd591a" class="code code-wrap"><code>headers.set(&#x27;Content-Type&#x27;, &#x27;application/json&#x27;);</code></pre><p id="46fc0ca3-7b8c-470f-980a-92e77f518ed6" class=""><code>append()</code> – Adds a new header to the headers object.</p><pre id="928d1fc6-cd00-43e5-ac7a-d3682d5cdb4d" class="code code-wrap"><code>headers.append(&#x27;Accept-Encoding&#x27;,&#x27;gzip,deflate&#x27;);</code></pre><p id="ce201ce5-9804-48f6-83b5-77a3496b0bbe" class=""><code>delete()</code> – Removes the header provided as an argument.</p><pre id="999786de-82b2-4489-8a64-53446eb4242d" class="code code-wrap"><code>headers.delete(&#x27;Accept-Encoding&#x27;)</code></pre><p id="545d4d49-5f36-4bc5-b2ad-1820d5a592ae" class=""><code>keys()</code> , <code>values()</code> and <code>entries()</code> – Iterators that can be used to iterate over the headers key, values or entries (key and value pairs).</p><pre id="4a524fd5-b157-411b-b017-dfb78608e1eb" class="code code-wrap"><code>for(const entry of headers.entries(){
+console.log(entry);
+}
+&lt;&lt; [ &#x27;Content-Type&#x27;, &#x27;application/json&#x27; ]</code></pre><h3 id="f96585bf-60ab-4e1c-a077-cb2ff775871e" class="">Putting It All Together</h3><p id="0710981d-40f3-4998-9428-f9e1c3975b85" class="">We can use the Headers, Request and Response objects to put together a typical example that sets up the URL, Request and Headers before calling the <code>fetch()</code> method:</p><pre id="bbca2f24-1b83-44b8-92d3-689c0429666e" class="code code-wrap"><code>const url = &#x27;https:example.com/data&#x27;;
+const headers = new Headers({ &#x27;Content-Type&#x27;: &#x27;text/plain&#x27;, &#x27;Accept-Charset&#x27; : &#x27;utf-8&#x27;, &#x27;Accept-Encoding&#x27;:&#x27;gzip,deflate&#x27; })
+const request = (url,{
+    headers: headers
+})
+fetch(request)
+.then( function(response) {
+    if(response.ok) {
+        return response;
+    }
+    throw Error(response.statusText);
+})
+.then( response =&gt; // do something with response )
+.catch( error =&gt; console.log(&#x27;There was an error!&#x27;) )</code></pre></div></article></body></html>
