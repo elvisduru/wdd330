@@ -1,0 +1,693 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>The Window Object</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0f5c748a-de5a-468b-b818-ba21c0325d05" class="page sans"><header><h1 class="page-title">The Window Object</h1></header><div class="page-body"><p id="62ae3a30-0da2-4ce5-ad6b-8ce856ef0524" class="">Every JavaScript environment has a <strong>global object</strong>. Any variables that are created in the global scope are actually properties of this object, and any functions are methods of it. In a browser environment the global object is the window object, which represents the browser <code>window</code> that contains a web page.</p><h2 id="8c06f978-88fa-4104-a103-f1562f7e0be9" class="">The Browser Object Model</h2><p id="d6da8f33-ed4c-4426-980a-f74572a24750" class="">The Browser Object Model (or BOM for short) is a collection of properties and methods that contain information about the browser and computer screen.</p><p id="916bddf0-c867-4d80-be3f-6d88b0655b6c" class="">Any global variable created is actually a property of the window object, as can be seen in the example below:</p><pre id="75feed1b-56f5-4bdf-80ae-765cdcd5eaf8" class="code code-wrap"><code>x = 6;  // global variable created
+&lt;&lt; 6
+window.x // same variable can be accessed as a property of the window object
+&lt;&lt; 6
+// both variables are exactly the same
+window.x === x;
+&lt;&lt; true</code></pre><h3 id="c1e3b7dd-fbed-487e-9988-65102a18e8a7" class="">Dialogs</h3><p id="f95c4593-a82e-4982-8143-9a7df360d87b" class="">The <code>window.alert()</code> method will pause the execution of the program and display a message in a dialog box. The message is provided as an argument to the method, and <code>undefined</code> is always returned:</p><pre id="415ccc5e-a460-4e97-96d6-9579e18e9dae" class="code code-wrap"><code>window.alert(&#x27;Hello&#x27;);
+&lt;&lt; undefined</code></pre><p id="ff93f45a-dcea-4c88-b619-81105a0912d1" class="">The <code>window.confirm()</code> method will stop the execution of the program and display a confirmation dialog that shows the message provided as an argument, and giving the options of OK or Cancel. It returns the <code>boolean</code> values of true if the user clicks OK, and false if the user clicks Cancel:</p><pre id="51ad88cb-b27e-44b1-b845-aaab5be2f0a3" class="code code-wrap"><code>window.confirm(&#x27;Do you wish to continue?&#x27;);
+&lt;&lt; undefined</code></pre><p id="cab3a3ee-7246-4ee5-803a-48c969b26d2e" class="">The <code>window.prompt()</code> method will stop the execution of the program. It displays a dialog that shows a message provided as an argument, as well as an input field that allows the user to enter text. This text is then returned as a string when the user clicks OK. If the user clicks Cancel, <code>null</code> is returned:</p><pre id="0fc6f51b-8f55-40c6-b198-c235f017f4ee" class="code code-wrap"><code>window.prompt(&#x27;Please enter your name:&#x27;);</code></pre><p id="21a28e77-6b2c-4bbb-9eb2-663e76e48bef" class="">The <code>window</code> object has a <code>navigator</code> property that returns a reference to the <code>Navigator</code> object. The <code>Navigator</code> object contains information about the browser being used. Its <code>userAgent</code> property will return information about the browser and operating system being used.</p><pre id="b744b129-87fc-4434-b78e-276265bb7eb7" class="code code-wrap"><code>window.navigator.userAgent
+&lt;&lt; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8&quot;</code></pre><h3 id="2fcdbe74-1ce0-4297-8366-b37469aa5054" class="">Location</h3><p id="6416769e-e2a1-44ff-b218-429622996252" class="">The <code>window.location</code> property is an object that contains information about the URL of the current page. It contains a number of properties that provide information about different fragments of the URL.</p><p id="bace5947-2e26-46cf-b76c-eb1a50fb6ecc" class="">The <code>href</code> property returns the full URL as a string:</p><pre id="76e129e1-bb31-490d-883e-9541541828fc" class="code code-wrap"><code>window.location.href 
+&lt;&lt; &quot;https://www.elvisduru.com/blog&quot;</code></pre><p id="4cc3207e-df02-4d6a-9c76-8a8a4e478deb" class="">This property (as well as most of the others in this section) is a read/write property, which means it can also be changed by assignment. If this is done, the page will be reloaded using the new property. For example, entering the following line into the browser console will redirect the page to the Google&#x27;s home page:</p><pre id="a5746353-9da2-4da6-873e-08d23f82e0d2" class="code code-wrap"><code>window.location.href = &#x27;https://www.sitepoint.com/javascript/&#x27;
+&lt;&lt; &quot;https://www.sitepoint.com/javascript/&quot;</code></pre><p id="998c3583-cf91-4bbe-8db8-02abe800dc9f" class="">The <code>protocol</code> property returns a string describing the protocol used (such as <code>http</code> , <code>https</code> , <code>pop2</code> , <code>ftp</code> etc.). Note that there is a colon (<code>:</code>) at the end:</p><pre id="e446ea71-af5a-46cf-99b9-9dba7a759ca9" class="code code-wrap"><code>window.location.protocol 
+&lt;&lt; &quot;https:&quot;</code></pre><p id="089c8147-1031-467b-8518-6c5383ae77ff" class="">The <code>host</code> property returns a string describing the domain of the current URL and the port number (this is often omitted if the default port 80 is used):</p><pre id="a3f4e363-2fbe-4b8f-a75f-1c318cfcefdc" class="code code-wrap"><code>window.location.host
+&lt;&lt; &quot;www.sitepoint.com&quot;</code></pre><p id="5e41bfcd-20d7-4e44-b734-92930f9aa6bc" class="">The <code>hostname</code> property returns a string describing the domain of the current URL:</p><pre id="c1c85c1a-1c83-4984-be93-f65607646471" class="code code-wrap"><code>window.location.hostname
+&lt;&lt; &quot;www.sitepoint.com&quot;</code></pre><p id="1359ad30-4212-4de2-9c07-1aa6bed6144f" class="">The <code>port</code> property returns a string describing the port number, although it will return an empty string if the port is not explicitly stated in the URL:</p><pre id="fcf38489-ee01-4a4f-bf83-0b0b80ca534d" class="code code-wrap"><code>window.location.port
+&lt;&lt; &quot;&quot;</code></pre><p id="46001d0d-de12-4eae-bbbd-78c43152a0c4" class="">The <code>pathname</code> property returns a string of the path that follows the domain:</p><pre id="2b11c424-bfbb-4b0f-b05a-13d4b96cce61" class="code code-wrap"><code>window.location.pathname
+&lt;&lt; &quot;/premium/books/javascript-novice-to-ninja&quot;</code></pre><p id="7a662338-9b35-4dd5-9a39-2af8a6682c99" class="">The <code>search</code> property returns a string that starts with a “<code>?</code>” followed by the query string parameters. It returns an empty string if there are no query string parameters. This is what I get when I search for “JavaScript” on SitePoint:</p><pre id="409a954c-a8fb-4149-8a16-7f2b58ef5c17" class="code code-wrap"><code>window.location.search
+&lt;&lt; &quot;?q=javascript&amp;limit=24&amp;offset=0&amp;page=1&amp;
+content_types[]=All&amp;slugs[]=all&amp;states[]=available&amp;order=&quot;</code></pre><p id="5e726326-5899-4729-b330-5b798ebc523b" class="">The <code>hash</code> property returns a string that starts with a “#” followed by the fragment identifier. It returns an empty string if there is no fragment identifier:</p><pre id="675160f3-c49c-4609-a2db-603542a250dd" class="code code-wrap"><code>window.location.hash
+&lt;&lt; &quot;&quot;</code></pre><p id="7f28bee0-f4a5-49ac-99bd-c60c531dae11" class="">The <code>origin</code> property returns a string that shows the protocol and domain where the current page originated from. This property is read-only, so cannot be changed:</p><pre id="38b0222b-caa7-4d51-9f33-3b9f0aab0fe7" class="code code-wrap"><code>window.location.origin
+&lt;&lt; &quot;https://www.sitepoint.com&quot;</code></pre><p id="75608830-6cbd-40df-b4b5-bd387bbbe962" class="">The <code>window.location</code> object also has the following methods:</p><ul id="00fc27c9-4d67-4770-a68f-4dbc19bc0221" class="bulleted-list"><li>The <code>reload()</code> method can be used to force a reload of the current page. If it’s given a parameter of <code>true</code> , it will force the browser to reload the page from the server, instead of using a cached page.</li></ul><ul id="8e57a049-9592-4188-8f94-e6185e0bd7b8" class="bulleted-list"><li>The <code>assign()</code> method can be used to load another resource from a URL provided as a parameter, for example:</li></ul><pre id="5172b4bf-082e-434a-9042-63df3320b73f" class="code code-wrap"><code>window.location.assign(&#x27;https://www.sitepoint.com/&#x27;)</code></pre><ul id="f804d745-ef62-4097-a2ef-9bedbbb110cd" class="bulleted-list"><li>The <code>replace()</code> method is almost the same as the <code>assign()</code> method, except the current page will not be stored in the session history, so the user will be unable to navigate back to it using the back button.</li></ul><ul id="38df24e5-43b4-498d-a371-daf2033c8452" class="bulleted-list"><li>The <code>toString()</code> method returns a string containing the whole URL:</li></ul><pre id="9b7a8254-9e1b-4f3c-bee1-bfb7da0ff508" class="code code-wrap"><code>window.location.toString();
+&lt;&lt; &quot;https://www.sitepoint.com/javascript/&quot;</code></pre><h2 id="dded482f-c0bb-4d42-870d-9e474a09f2fb" class="">Browser history</h2><p id="fbc3cc09-916d-449c-a831-f0ac6bcbc0b5" class="">The <code>window.history</code> property can be used to access information about any previously visited pages in the current browser session.</p><p id="4b256fc8-99d0-4552-a82a-0092b2601feb" class="">The <code>window.history.length</code> property shows how many pages have been visited before arriving at the current page.</p><p id="67096c57-4a16-47ae-9e6e-a2412b4c151d" class="">The <code>window.history.go()</code> method can be used to go to a specific page, where 0 is the current page:</p><pre id="49a3709a-bf47-41da-8b0d-22ca47d05548" class="code code-wrap"><code>window.history.go(1); // goes forward 1 page
+window.history.go(0); // reloads the current page
+window.history.go(-1); // goes back 1 page</code></pre><p id="2d107a79-8cbc-41da-bd44-c8d4b437b34f" class="">There are also the <code>window.history.forward()</code> and <code>window.history.back()</code> methods that can be used to navigate forwards and backwards by one page respectively, just like using the browser’s forward and back buttons.</p><h2 id="c234de5f-e13f-4058-86af-35a5b1eeccf3" class="">Controlling windows</h2><p id="fac7b756-4774-48b7-b0ff-868455e4be08" class="">A new window can be opened using the <code>window.open()</code> method. This takes the URL of the page to be opened as its first parameter, the window title as its second parameter, and a list of attributes as the third parameter. This can also be assigned to a variable, so the window can then be referenced later in the code:</p><pre id="bf223c49-d766-497e-97bd-0085ac1458fd" class="code code-wrap"><code>const popup = window.open(&#x27;https://sitepoint.com&#x27;,&#x27;SitePoint&#x27;,&#x27;width=400,height=400,resizable=yes&#x27;);</code></pre><p id="8eb7e50a-0850-4320-82f9-630da8cb2fab" class="">The <code>close()</code> method can be used to close a window, assuming you have a reference to it:</p><pre id="240a7f70-f047-4dc2-85e7-dc7bf74455be" class="code code-wrap"><code>popup.close();</code></pre><p id="f30143ef-7592-4c28-b66a-efc17a7344d3" class="">It is also possible to move a window using the <code>window.moveTo()</code> method. This takes two parameters that are the X and Y coordinates of the screen that the window is to be moved to:</p><pre id="1842abb7-a897-482c-9587-1748e2e70409" class="code code-wrap"><code>window.moveTo(0,0); // will move the window to the top-left corner of the screen</code></pre><p id="45f8551a-c9c9-4309-90ca-340c9fa8c34b" class="">You can resize a window using the <code>window.resizeTo()</code> method. This takes two parameters that specify the width and height of the resized window’s dimensions:</p><pre id="24854ef1-aea3-42bb-ae80-aea19e1d9f41" class="code code-wrap"><code>window.resizeTo(600,400);</code></pre><h3 id="48466b3e-9206-4e32-acf0-3302dcbfc954" class="">Screen Information</h3><p id="7a26a76d-1b18-40ad-9e2e-6c8b9540ec9b" class="">The <code>window.screen</code> object contains information about the screen the browser is displayed on. You can find out the height and width of the screen in pixels using the <code>height</code> and <code>width</code> properties respectively:</p><pre id="b5416ba3-61b9-4e02-8920-01dcff72ba8b" class="code code-wrap"><code>window.screen.height
+&lt;&lt; 1024
+window.screen.width
+&lt;&lt; 1280</code></pre><p id="0c22e6fa-0e55-41b4-8305-04fcaa86274a" class="">The <code>availHeight</code> and <code>availWidth</code> can be used to find the height and width of the screen, excluding any operating system menus:</p><pre id="d71fd1d0-bfad-4fb4-8d60-c2e0afb86c2a" class="code code-wrap"><code>window.screen.availWidth
+&lt;&lt; 1280
+window.screen.availHeight
+&lt;&lt; 995</code></pre><p id="865c3a7b-fc3f-4138-a0f9-6c63824818cc" class="">The <code>colorDepth</code> property can be used to find the color bit depth of the user’s monitor, although there are few use cases for doing this other than collecting user statistics:</p><pre id="9aea7eff-92f4-4959-82c1-d9e4b8126ec6" class="code code-wrap"><code>window.screen.colorDepth;
+&lt;&lt; 24</code></pre><h2 id="38bca360-658e-44f6-8627-4b7fe867d4dc" class="">The Document Object</h2><p id="10a1a9c5-8c83-4979-ae2a-28e5454fc5f0" class="">Each <code>window</code> object contains a <code>document</code> object. This object has properties and methods that deal with the page that has been loaded into the window. The document object contains a few methods that are worth looking at.</p><h3 id="20b641f8-4ef9-4a17-a607-29309330a467" class=""><code>document.write()</code></h3><p id="eb977444-a8a5-42a3-aac1-855689eb49fe" class="">The <code>write()</code> method simply writes a string of text to the page. If a page has already loaded, it will completely replace the current document:</p><pre id="5efbe8e9-e686-4d70-ad03-67973eb5af56" class="code code-wrap"><code>document.write(&#x27;Hello, world!&#x27;);</code></pre><p id="e74a9121-3978-42da-a294-29d17f13d7f4" class="">The <code>document.write()</code> method can also be used within a document inside <code>&lt;script&gt;</code> tags to inject a string into the markup. This will not overwrite the rest of the HTML on the page. The following example will place the text <code>&quot;Hello, world!&quot;</code> inside the <code>&lt;h1&gt;</code> tags and the rest of the page will display as normal:</p><pre id="4dfb9120-7afd-4fe5-9ce4-f2cc78f931e4" class="code code-wrap"><code>&lt;h1&gt;
+    &lt;script&gt;document.write(&quot;Hello, world!&quot;)&lt;/script&gt;
+&lt;/h1&gt;</code></pre><h2 id="92752c50-e749-4323-8cb7-00e3b783ebe8" class="">Cookies</h2><p id="15ff5a09-c2f7-4ad0-bbdc-9dacb204c7e2" class="">Cookies are small files that are saved locally on a user’s computer. They were invented by Netscape as a way of getting round HTTP being a stateless protocol.</p><p id="bac91280-e3d3-41a6-b5a6-e4b59afdd697" class="">A restriction of cookies is that they can only be read by a web page from the same domain that set them. This is to stop sites being able to access information about users, such as other sites they have visited. Cookies are also limited to storing up to 4KB of data, although 20 cookies are allowed per domain, which can add up to quite a lot of data.</p><p id="adb68d9c-92cc-45d0-bcb8-4fb2e6cb7524" class="">Cookies can be used for personalizing a user’s browsing experience, storing user preferences, keeping track of user choices (such as a shopping cart), authentication and tracking users.</p><p id="35f7e09c-13e4-4367-a070-1dfa0ee01a77" class="">Cookies take the form of a text file that contain a list of name/value pairs separated by semicolons. For example, a cookie file might contain the following information:</p><pre id="f688385d-7122-4593-8f22-713b2b6c1372" class="code code-wrap"><code>&quot;name=Superman; hero=true; city=Metropolis&quot;</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="57162c2a-3687-4527-b614-8807fb134599"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">The EU Cookie Directive is a piece of legislation that requires websites based in an EU country to ask for permission before setting any cookies. It’s possible, however, that in the future this requirement may be part of a global browser setting, rather than the onus being on each individual website to ask for permission to set cookies.</div></figure><h3 id="01a18fb6-6420-4a26-b304-84689488b99c" class="">Creating Cookies</h3><pre id="7467f0bf-21dd-4dfe-b007-f5e70e7adfe6" class="code code-wrap"><code>document.cookie = &#x27;name=Superman&#x27;;
+&lt;&lt; &quot;name=Superman&quot;</code></pre><p id="ba826fa6-57ba-4ada-95a2-e9d80e5c598d" class="">The <code>document.cookie </code>property acts like a special type of string. Assigning another cookie to it won’t overwrite the entire property, it will just append it to the end of the string. So we can add more cookies by assigning them to <code>document.cookie</code> :</p><pre id="159c78b2-1a39-4e14-903e-38ec5909e0d1" class="code code-wrap"><code>document.cookie = &#x27;hero=true&#x27;;
+&lt;&lt; &quot;hero=true&quot;
+document.cookie = &#x27;city=Metropolis&#x27;;
+&lt;&lt; &quot;city=Metropolis&quot;</code></pre><h3 id="44e68695-800a-4cc3-9fc6-9524d9eb9bc3" class="">Changing Cookie Values</h3><p id="97c56c11-bb90-45e3-98e8-d282513016d0" class="">A cookie’s value can be changed by reassigning it to <code>document.cookie</code> using the same name but a different value. The following code will update the value of two of the cookies that we set in the previous section:</p><pre id="17d01fb3-3131-495d-a732-31b88f70f46a" class="code code-wrap"><code>document.cookie = &#x27;name=Batman&#x27;
+&lt;&lt; &quot;name=Batman&quot;
+document.cookie = &#x27;city=Gotham&#x27;
+&lt;&lt; &quot;city=Gotham&quot;</code></pre><h3 id="50aec0b0-b8c7-4b46-93c0-87fba1ed093c" class="">Reading Cookies</h3><p id="de014210-e9ed-462d-9f4d-2a01f888e39a" class="">To see the current contents of the cookie jar, simply enter <code>document.cookie</code> :</p><pre id="725cec71-204d-4d3f-953a-bf7843a3177e" class="code code-wrap"><code>document.cookie:
+&lt;&lt; &quot;name=Batman; hero=true; city=Gotham&quot;</code></pre><h3 id="2012abe4-b304-4257-bdc2-d1d93c6c65cc" class="">Cookie Expiry Dates</h3><p id="5d492422-4314-413f-ba66-d2daf831945d" class="">Cookies are session cookies by default. This means they are deleted once a browser session is finished (when the user closes the browser tab or window). Cookies can be made persistent ― that is, lasting beyond the browser session ― by adding <code>&quot;; expires=date&quot;</code> to the end of the cookie when it’s set, where<code> date</code> is a date value in the UTC String format <code>Day, DD-Mon-YYYY HH:MM:SS GMT </code>. The following example sets a cookie to expire in one day’s time:</p><pre id="a82d2cc7-f983-445e-bf59-0baf1ab6bbb8" class="code code-wrap"><code>const expiryDate = new Date(); 
+const tomorrow = expiryDate.getTime() + 1000 * 60 * 60 * 24;
+expiryDate.setTime(tomorrow);
+document.cookie = `name=Batman; expires=${ expiryDate.toUTCString()}`;</code></pre><h3 id="e0c33a5d-3526-4ef6-9ca6-8e0abb4d2664" class="">The Path and Domain of Cookies</h3><p id="bc54829c-7fb1-4c65-906b-494e4bfde10e" class="">By default, cookies can only be read by pages inside the same directory and domain as the file was set. This is for security reasons so that access to the cookie is limited.</p><p id="538c96ff-9f17-4a48-a0ba-36363abeb8f7" class="">The path can be changed so that any page in the root directory can read the cookie. It’s done by adding the string <code>; path=/</code> to the end of the cookie when it is set:</p><pre id="ba1846a9-b335-44b5-8fa7-d7b6d150c9d6" class="code code-wrap"><code>document.cookie = &#x27;name=Batman; path=/&#x27;</code></pre><p id="aaf393df-cdd9-41c4-b656-45f03240a8e1" class="">It’s also possible to set the domain by adding <code>&quot;; domain=domainName&quot;</code> to the end of the cookie:</p><pre id="285f4f3e-46bf-454b-bbc4-5c0bc96d40e3" class="code code-wrap"><code>document.cookie = &#x27;name=Batman; domain=sitepoint.com&#x27;;</code></pre><p id="41a685d8-d4fd-4532-a77b-8c5894316eb7" class="">A cookie can only be read by the domain that created it anyway, but doing this will allow all subdomains of <a href="http://sitepoint.com/">sitepoint.com</a> (such as <a href="http://javascript.sitepoint.com/">javascript.sitepoint.com</a> and <a href="http://books.sitepoint.com/">books.sitepoint.com</a>) to read it.</p><h3 id="eff5a4a4-a80a-4d93-9485-917971f68639" class="">Secure Cookies</h3><p id="6e55cfe0-cec6-4c33-bc7d-011cbf797a38" class="">Adding the string <code>; secure</code> to the end of a cookie will ensure it’s only transmitted over a secure HTTPS network:</p><pre id="57b7a8a3-4b19-449b-977e-b2ffd5efe822" class="code code-wrap"><code>document.cookie = &#x27;name=Batman; secure&#x27;;</code></pre><h3 id="e661405a-d7eb-4641-819e-07c9c4ad518c" class="">Deleting Cookies</h3><p id="aa105376-0968-4577-a1ba-96fc35bbe5ce" class="">To remove a cookie, you need to set it to expire at a time in the past:</p><pre id="1aafc059-de75-423b-85b0-5cc4b36ef757" class="code code-wrap"><code>document.cookie = &#x27;name=Batman; expires=Thu, 01 Jan 1970 00:00:01 GMT&#x27;;</code></pre><p id="d069b939-8efc-4355-b588-c527931a2e26" class="">If a cookie is a session cookie, it will expire when the tab or window is closed.</p><h2 id="5169b5b8-20bf-4f34-9eaf-437e372f0118" class="">Timing functions</h2><h3 id="5310c4d6-4610-4976-8658-93a481606202" class=""><code>setTimeout()</code></h3><p id="59b81225-fe8b-48b3-83b2-87e07e108a7a" class="">The <code>window </code>object provides some useful methods for scheduling the execution of a function, and for repeatedly executing functions at regular intervals.</p><p id="9f38a0bc-cdfb-4235-b65b-c840092cfaf4" class="">The <code>window.setTimeout()</code> method accepts a callback to a function as its first parameter and a number of milliseconds as its second parameter.</p><pre id="135a9f78-fb5f-440e-8989-213cbb6088d8" class="code code-wrap"><code>window.setTimeout( () =&gt; alert(&quot;Time&#x27;s Up!&quot;), 3000);
+&lt;&lt; 4</code></pre><p id="14b9534f-50ee-43fe-bf3a-b192e9e8ab1d" class="">It returns an integer that is an ID used to reference that particular timeout. It can also cancel the timeout using the <code>window.clearTimeout()</code> method.</p><pre id="f56358b2-c0fe-4cfb-9e16-e73dcb40d943" class="code code-wrap"><code>window.setTimeout( () =&gt; alert(&quot;Time&#x27;s Up!&quot;), 3000);
+&lt;&lt; 5
+
+// Clear the timeout with an ID of 5
+window.clearTimeout(5);
+&lt;&lt; undefined</code></pre><h3 id="1e18fd5a-ef21-41e7-be50-e0500f6c1104" class=""><code>setInterval()</code></h3><p id="33732d1b-9284-40dd-9dc4-87b509648e50" class="">The <code>window.setInterval()</code> method works in a similar way to <code>window.setTimeout()</code> , except that it will repeatedly invoke the callback function after every given number of milliseconds.</p><pre id="15747755-937e-4e1e-a2a7-aa288717ac81" class="code code-wrap"><code>function chant(){ console.log(&#x27;Beetlejuice&#x27;); }
+
+/* This should show the message “Beetlejuice” in the console every second (1,000 milliseconds).*/
+const summon = window.setInterval(chant,1000);
+&lt;&lt; 6
+
+// To stop this we can use the clearInterval() method
+window.clearInterval(summon);</code></pre><p id="df8a9caa-2dea-4f2e-8eea-a0478ccfbd3d" class="">
+</p></div></article></body></html>
