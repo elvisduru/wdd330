@@ -1,0 +1,637 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Validating Forms using JavaScript</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="eb63d19a-a9a7-4c82-9496-15dbbafe9d7b" class="page sans"><header><h1 class="page-title">Validating Forms using JavaScript</h1></header><div class="page-body"><p id="12fe89ba-de67-47dc-be4a-4095acef7d0e" class="">You must use JavaScript if you want to take control over the look and feel of native error messages or to deal with legacy browsers that do not support HTML&#x27;s built-in form validation.</p><h3 id="c2b8063c-c5cf-4be7-a57e-5e62e2787458" class="">The Constraint Validation API</h3><p id="2a42d742-8f63-42dd-9ccc-9c81529a2a53" class="">Most browsers support the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation">Constraint Validation API</a>, which consists of a set of methods and properties available on the following form element DOM interfaces:</p><ul id="69bc1747-3007-431f-a768-6e7fd7a7c8a3" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement"><code>HTMLButtonElement</code></a> (represents a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button"><code>&lt;button&gt;</code></a> element)</li></ul><ul id="5dca6b58-8fc4-4a24-8386-080740052532" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFieldSetElement"><code>HTMLFieldSetElement</code></a> (represents a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset"><code>&lt;fieldset&gt;</code></a> element)</li></ul><ul id="acf0b1df-cbb2-447f-862a-3d5ac774359e" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement"><code>HTMLInputElement</code></a> (represents an <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> element)</li></ul><ul id="3e906499-c595-4c39-a301-d03dadeb68cd" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLOutputElement"><code>HTMLOutputElement</code></a> (represents an <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output"><code>&lt;output&gt;</code></a> element)</li></ul><ul id="10b8caf7-09c1-4640-a6ad-da42fcaa5ce4" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement"><code>HTMLSelectElement</code></a> (represents a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select"><code>&lt;select&gt;</code></a> element)</li></ul><ul id="1b55093d-8524-4cd7-84ab-391aebd4cb2a" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement"><code>HTMLTextAreaElement</code></a> (represents a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea"><code>&lt;textarea&gt;</code></a> element)</li></ul><p id="a48ecc60-13b8-4bfd-aa51-2f564057d0e0" class="">The Constraint validation API makes the following properties available on the above elements.</p><ul id="49176efc-f6fc-4fb3-8ce6-686aeaa611c7" class="bulleted-list"><li><code>validationMessage</code>: Returns a localized message describing the validation constraints that the control doesn&#x27;t satisfy (if any). If the control is not a candidate for constraint validation (<code>willValidate</code> is <code>false</code>) or the element&#x27;s value satisfies its constraints (is valid), this will return an empty string.</li></ul><ul id="a0f72e2d-4040-4bf5-a510-c3fbe2a52d4e" class="bulleted-list"><li><code>validity</code>: Returns a <code>ValidityState</code> object that contains several properties describing the validity state of the element. Below is listed a few of the more common ones:<ul id="bf1b66bf-12ed-45b1-be61-8cec3923bfee" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/patternMismatch"><code>patternMismatch</code></a>: Returns <code>true</code> if the value does not match the specified <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-pattern"><code>pattern</code></a>, and <code>false</code> if it does match. If true, the element matches the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid"><code>:invalid</code></a> CSS pseudo-class.</li></ul><ul id="8c34e71f-34ca-4422-8cee-f56ab09d3930" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/tooLong"><code>tooLong</code></a>: Returns <code>true</code> if the value is longer than the maximum length specified by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-maxlength"><code>maxlength</code></a> attribute, or <code>false</code> if it is shorter than or equal to the maximum. If true, the element matches the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid"><code>:invalid</code></a> CSS pseudo-class.</li></ul><ul id="23070c09-1bfb-4e04-9600-5079627e87b5" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/tooShort"><code>tooShort</code></a>: Returns <code>true</code> if the value is shorter than the minimum length specified by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-minlength"><code>minlength</code></a> attribute, or <code>false</code> if it is greater than or equal to the minimum. If true, the element matches the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid"><code>:invalid</code></a> CSS pseudo-class.</li></ul><ul id="082cd33c-9688-424e-b87a-14ddfd46d072" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/rangeOverflow"><code>rangeOverflow</code></a>: Returns <code>true</code> if the value is greater than the maximum specified by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max"><code>max</code></a> attribute, or <code>false</code> if it is less than or equal to the maximum. If true, the element matches the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid"><code>:invalid</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:out-of-range"><code>:out-of-range</code></a> CSS pseudo-classes.</li></ul><ul id="48b36544-bab2-46a4-80a3-274a38f4e3be" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/rangeUnderflow"><code>rangeUnderflow</code></a>: Returns <code>true</code> if the value is less than the minimum specified by the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-min"><code>min</code></a> attribute, or <code>false</code> if it is greater than or equal to the minimum. If true, the element matches the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid"><code>:invalid</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:out-of-range"><code>:out-of-range</code></a> CSS pseudo-classes.</li></ul><ul id="27a4ffd0-0f44-4888-821f-2f828aa95113" class="bulleted-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/typeMismatch"><code>typeMismatch</code></a>: Returns <code>true</code> if the value is not in the required syntax (when <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-type"><code>type</code></a> is <code>email</code> or <code>url</code>), or <code>false</code> if the syntax is correct. If <code>true</code>, the element matches the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid"><code>:invalid</code></a> CSS pseudo-class.</li></ul><ul id="b56b214f-8dda-4185-a902-e29d605f3f8c" class="bulleted-list"><li><code>valid</code>: Returns <code>true</code> if the element meets all its validation constraints, and is therefore considered to be valid, or <code>false</code> if it fails any constraint. If true, the element matches the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:valid"><code>:valid</code></a> CSS pseudo-class; the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid"><code>:invalid</code></a> CSS pseudo-class otherwise.</li></ul><ul id="bbef4e41-ac98-4795-9755-70c03bfd4c23" class="bulleted-list"><li><code>valueMissing</code>: Returns <code>true</code> if the element has a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-required"><code>required</code></a> attribute, but no value, or <code>false</code> otherwise. If true, the element matches the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid"><code>:invalid</code></a> CSS pseudo-class.</li></ul></li></ul><ul id="c7aaa9a8-2f5f-45b3-a335-c6bc88afd812" class="bulleted-list"><li><code>willValidate</code>: Returns <code>true</code> if the element will be validated when the form is submitted; <code>false</code> otherwise.</li></ul><p id="7b647865-2fe0-43b4-ad8b-1664a0f6929e" class="">The Constraint Validation API also makes the following methods available on the above elements.</p><ul id="560e910c-1739-4899-b31e-5b019e3bf8b7" class="bulleted-list"><li><code>checkValidity()</code>: Returns <code>true</code> if the element&#x27;s value has no validity problems; <code>false</code> otherwise. If the element is invalid, this method also fires an <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/invalid_event"><code>invalid</code></a><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/invalid_event"> event</a> on the element.</li></ul><ul id="67a7bb2e-b6d9-4074-8cb3-a1ab37ca731a" class="bulleted-list"><li><code>setCustomValidity(</code><code><em>message</em></code><code>)</code>: Adds a custom error message to the element; if you set a custom error message, the element is considered to be invalid, and the specified error is displayed. This lets you use JavaScript code to establish a validation failure other than those offered by the standard HTML5 validation constraints. The message is shown to the user when reporting the problem.</li></ul><p id="c31c65c5-f005-48b4-812b-8bf96afdcca3" class="">
+</p></div></article></body></html>
