@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./app.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&family=Montserrat:wght@900&display=swap"
+    rel="stylesheet">
+  <title>Screenio - Record Anything!</title>
+</head>
+
+<body>
+  <main>
+    <div id="intro">
+      <h1>Screenio</h1>
+      <p>Free Screen Recorder App</p>
+    </div>
+    <div class="controls">
+      <button class="btn" id="start">Record Video</button>
+      <button class="btn" id="start-mic">Record Video + Mic</button>
+      <button class="btn hidden" id="pause">Pause Recording</button>
+      <button class="btn hidden" id="resume">Resume Recording</button>
+      <button class="btn hidden" id="stop">Stop Recording</button>
+    </div>
+    <div id="preview-box" class="hidden">
+      <video autoplay controls></video>
+      <div class="controls">
+        <button class="btn save">Add to Library</button>
+        <button class="btn download">Download Now</button>
+        <button class="btn cancel">Start Over</button>
+      </div>
+    </div>
+    <section>
+      <h2>Your Library</h2>
+      <div id="history"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/localforage"></script>
+  <script src="./app.js" type="module"></script>
+</body>
+
+</html>
